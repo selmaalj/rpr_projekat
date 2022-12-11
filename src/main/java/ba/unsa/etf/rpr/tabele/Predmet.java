@@ -6,7 +6,12 @@ public class Predmet {
     private int id;
     private String nazivPredmeta;
     private String nivoSkolovanja;
-
+    public Predmet(int id, String nazivPredmeta, String nivoSkolovanja) {
+        this.id = id;
+        this.nazivPredmeta = nazivPredmeta;
+        this.nivoSkolovanja = nivoSkolovanja;
+    }
+    public Predmet(){};
     public int getId() {
         return id;
     }
