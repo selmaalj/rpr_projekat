@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.tabele.Predmet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -85,11 +86,35 @@ public class PredmetDao implements Dao<Predmet>{
     }
     @Override
     public void delete(int id) {
+        try{
+            PreparedStatement statement=this.con.prepareStatement("DELETE FROM Predmet WHERE idPredmet = ?");
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public List getAll() {
-        return null;
+        List<Predmet> lista=new ArrayList<>();
+        try{
+            PreparedStatement statement=this.con.prepareStatement("SELECT * FROM Predmet");
+            ResultSet rs=statement.executeQuery(); //cita slog po slog
+            while(rs.next()){
+                Predmet predmet=new Predmet();
+                predmet.setId(rs.getInt("idPredmet"));
+                predmet.setNivoSkolovanja(rs.getString("nivo_skolovanja"));
+                predmet.setNazivPredmeta(rs.getString("naziv_predmeta"));
+                lista.add(predmet);
+            }
+            rs.close();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
     private int getMaxId(){
         int id=1;
