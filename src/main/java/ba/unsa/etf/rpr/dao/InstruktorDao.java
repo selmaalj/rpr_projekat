@@ -69,6 +69,18 @@ public class InstruktorDao implements Dao<Instruktor> {
 
     @Override
     public Instruktor update(Instruktor element) {
+        try{
+            PreparedStatement statement= con.prepareStatement("UPDATE Instruktor SET naziv_instruktora=?,telefonski_broj=?,cijena_po_casu=? WHERE idInstruktor=?");
+            statement.setString(1,element.getNazivInstruktora());
+            statement.setString(2, element.getTelefonskiBroj());
+            statement.setDouble(3,element.getCijenaPoCasu());
+            statement.setInt(4,element.getIdInstruktor());
+            statement.executeUpdate();
+            return element;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
