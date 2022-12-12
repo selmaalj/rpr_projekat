@@ -59,8 +59,8 @@ public class PredmetDao implements Dao<Predmet>{
             statement.setInt(1,getMaxId());
             statement.setString(2,element.getNazivPredmeta());
             statement.setString(3, element.getNivoSkolovanja());
-            statement.executeUpdate();
             element.setId(getMaxId());
+            statement.executeUpdate();
             return element;
         }
         catch (SQLException e){
