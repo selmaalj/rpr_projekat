@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.tabele.Instruktor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -98,7 +99,24 @@ public class InstruktorDao implements Dao<Instruktor> {
 
     @Override
     public List getAll() {
-        return null;
+        List<Instruktor> lista=new ArrayList<>();
+        try{
+            PreparedStatement statement=con.prepareStatement("SELECT * FROM Instruktor");
+            ResultSet rs=statement.executeQuery();
+            while(rs.next()){
+                Instruktor instruktor=new Instruktor();
+                instruktor.setIdInstruktor(rs.getInt("idInstruktor"));
+                instruktor.setNazivInstruktora(rs.getString("naziv_instruktora"));
+                instruktor.setTelefonskiBroj(rs.getString("telefonski_broj"));
+                instruktor.setCijenaPoCasu(rs.getDouble("cijena_po_casu"));
+                lista.add(instruktor);
+            }
+            rs.close();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
     private int getMaxId(){
         int id=100;
