@@ -86,7 +86,14 @@ public class InstruktorDao implements Dao<Instruktor> {
 
     @Override
     public void delete(int id) {
-
+        try{
+            PreparedStatement statement=con.prepareStatement("DELETE FROM Instruktor WHERE idInstruktor=?");
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
