@@ -8,6 +8,14 @@ public class Instruktor {
     private String telefonskiBroj;
     private Double cijenaPoCasu;
 
+    public Instruktor(int idInstruktor, String nazivInstruktora, String telefonskiBroj, Double cijenaPoCasu) {
+        this.idInstruktor = idInstruktor;
+        this.nazivInstruktora = nazivInstruktora;
+        this.telefonskiBroj = telefonskiBroj;
+        this.cijenaPoCasu = cijenaPoCasu;
+    }
+
+    public Instruktor() {};
     public int getIdInstruktor() {
         return idInstruktor;
     }
