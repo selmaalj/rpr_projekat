@@ -70,12 +70,21 @@ public class PredmetDao implements Dao<Predmet>{
 
     @Override
     public Predmet update(Predmet element) {
+        try{
+            PreparedStatement statement=con.prepareStatement("UPDATE Predmet SET naziv_predmeta=?,nivo_skolovanja=? WHERE idPredmet=?");
+            statement.setString(1, element.getNazivPredmeta());
+            statement.setString(2, element.getNivoSkolovanja());
+            statement.setInt(3, element.getId());
+            statement.executeUpdate();
+            return element;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
-
     @Override
     public void delete(int id) {
-
     }
 
     @Override
