@@ -6,6 +6,7 @@ import ba.unsa.etf.rpr.tabele.Instruktor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -65,7 +66,25 @@ public class DostupanDao implements Dao<Dostupan>{
     }
 
     @Override
-    public List getAll() {
-        return null;
+    public List<Dostupan> getAll() {
+        List<Dostupan> lista=new ArrayList<>();
+        try{
+            PreparedStatement statement=con.prepareStatement("SELECT * FROM Dostupan");
+            ResultSet rs=statement.executeQuery();
+            while(rs.next()){
+                Dostupan dostupan=new Dostupan();
+                dostupan.setId(rs.getInt("idDostupan"));
+                dostupan.setDan(rs.getString("dan"));
+                InstruktorDao instruktor=new InstruktorDao();
+                dostupan.setIns(instruktor.getbyId(rs.getInt("idInstruktor")));
+                lista.add(dostupan);
+            }
+            rs.close();
+            return lista;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
 }
