@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Dostupan {
     private int id;
+    private String dan;
     private Instruktor ins;
 
     public int getId() {
@@ -12,6 +13,14 @@ public class Dostupan {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDan() {
+        return dan;
+    }
+
+    public void setDan(String dan) {
+        this.dan = dan;
     }
 
     public Instruktor getIns() {
@@ -26,6 +35,7 @@ public class Dostupan {
     public String toString() {
         return "Dostupan{" +
                 "id=" + id +
+                ", dan=" + dan +
                 ", ins=" + ins +
                 '}';
     }
@@ -38,6 +48,6 @@ public class Dostupan {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, ins);
+        return Objects.hash(id,dan,ins);
     }
 }
