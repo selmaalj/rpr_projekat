@@ -19,11 +19,8 @@ public class DostupanDao implements Dao<Dostupan>{
             Scanner ulaz = new Scanner(f);
             con = DriverManager.getConnection(ulaz.nextLine(), ulaz.nextLine(), ulaz.nextLine());
         }
-        catch(SQLException e){
+        catch(SQLException | FileNotFoundException e){
             System.out.println(e.getMessage());
-        }
-        catch (FileNotFoundException f){
-            System.out.println(f.getMessage());
         }
     }
 
@@ -55,14 +52,20 @@ public class DostupanDao implements Dao<Dostupan>{
     public Dostupan add(Dostupan element) {
         return null;
     }
-
     @Override
     public Dostupan update(Dostupan element) {
         return null;
     }
-
     @Override
     public void delete(int id) {
+        try{
+            PreparedStatement statement=con.prepareStatement("DELETE FROM Dostupan WHERE idDostupan=?");
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
