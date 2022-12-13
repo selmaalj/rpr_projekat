@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class PredmetDao implements Dao<Predmet>{
+public class PredmetDaoSQLImpl implements Dao<Predmet>{
     private Connection con;
-    public PredmetDao() {
+    public PredmetDaoSQLImpl() {
         try{
             File f=new File("konekcija.txt");
             Scanner ulaz=new Scanner(f);
