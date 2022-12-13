@@ -50,6 +50,18 @@ public class DostupanDao implements Dao<Dostupan>{
 
     @Override
     public Dostupan add(Dostupan element) {
+        try{
+            PreparedStatement statement=con.prepareStatement("INSERT INTO Dostupan VALUES( ? , ? , ? )");
+            statement.setInt(1, getMaxId());
+            statement.setString(2,element.getDan());
+            statement.setInt(3,element.getIns().getIdInstruktor());
+            element.setId(getMaxId());
+            statement.executeUpdate();
+            return element;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
     @Override
@@ -89,5 +101,21 @@ public class DostupanDao implements Dao<Dostupan>{
             System.out.println(e.getMessage());
         }
         return lista;
+    }
+    private int getMaxId(){
+        int id=1;
+        try{
+            PreparedStatement statement=con.prepareStatement("SELECT MAX(idDostupan)+1 FROM Dostupan");
+            ResultSet rs=statement.executeQuery();
+            if(rs.next()){
+                id=rs.getInt(1);
+                rs.close();
+                return id;
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return id;
     }
 }
