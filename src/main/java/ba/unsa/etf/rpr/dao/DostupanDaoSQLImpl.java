@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DostupanDaoSQLImpl implements Dao<Dostupan>{
+public class DostupanDaoSQLImpl implements DostupanDao{
     Connection con;
 
     public DostupanDaoSQLImpl() {
