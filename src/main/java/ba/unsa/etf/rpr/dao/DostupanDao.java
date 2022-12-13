@@ -66,6 +66,18 @@ public class DostupanDao implements Dao<Dostupan>{
     }
     @Override
     public Dostupan update(Dostupan element) {
+        try
+        {
+            PreparedStatement statement=con.prepareStatement("UPDATE Dostupan SET dan=?,idInstruktor=? WHERE idDostupan=?");
+            statement.setString(1, element.getDan());
+            statement.setInt(2, element.getIns().getIdInstruktor());
+            statement.setInt(3, element.getId());
+            statement.executeUpdate();
+            return element;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
     @Override
