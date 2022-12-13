@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class PredmetDaoSQLImpl implements Dao<Predmet>{
+public class PredmetDaoSQLImpl implements PredmetDao{
     private Connection con;
     public PredmetDaoSQLImpl() {
         try{
