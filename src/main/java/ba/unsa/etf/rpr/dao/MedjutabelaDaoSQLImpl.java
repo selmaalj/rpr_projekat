@@ -1,18 +1,20 @@
 package ba.unsa.etf.rpr.dao;
 
+import ba.unsa.etf.rpr.tabele.Medjutabela;
+
 import java.util.List;
 
-public class MedjutabelaDaoSQLImpl implements Dao{
+public class MedjutabelaDaoSQLImpl implements MedjutabelaDao{
     @Override
-    public Object getbyId(int id) {
+    public Medjutabela getbyId(int id) {
         return null;
     }
     @Override
-    public Object add(Object element) {
+    public Medjutabela add(Medjutabela element) {
         return null;
     }
     @Override
-    public Object update(Object element) {
+    public Medjutabela update(Medjutabela element) {
         return null;
     }
     @Override
