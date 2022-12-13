@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class InstruktorDao implements Dao<Instruktor> {
+public class InstruktorDaoSQLImpl implements Dao<Instruktor> {
     Connection con;
 
-    public InstruktorDao(){
+    public InstruktorDaoSQLImpl(){
         try {
             File f = new File("konekcija.txt");
             Scanner ulaz = new Scanner(f);
