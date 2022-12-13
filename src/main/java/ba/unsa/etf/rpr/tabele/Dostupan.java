@@ -7,6 +7,12 @@ public class Dostupan {
     private String dan;
     private Instruktor ins;
 
+    public Dostupan(int id, String dan, Instruktor ins) {
+        this.id=id;
+        this.dan=dan;
+        this.ins=ins;
+    }
+    public Dostupan(){};
     public int getId() {
         return id;
     }
