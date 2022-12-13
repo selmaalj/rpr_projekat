@@ -1,7 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.tabele.Dostupan;
-import ba.unsa.etf.rpr.tabele.Instruktor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DostupanDao implements Dao<Dostupan>{
+public class DostupanDaoSQLImpl implements Dao<Dostupan>{
     Connection con;
 
-    public DostupanDao() {
+    public DostupanDaoSQLImpl() {
         try{
             File f = new File("konekcija.txt");
             Scanner ulaz = new Scanner(f);
@@ -32,7 +31,7 @@ public class DostupanDao implements Dao<Dostupan>{
             ResultSet rs=statement.executeQuery();
             if(rs.next()){
                 Dostupan dostupan=new Dostupan();
-                InstruktorDao instruktor=new InstruktorDao();
+                InstruktorDaoSQLImpl instruktor=new InstruktorDaoSQLImpl();
                 dostupan.setId(id);
                 dostupan.setDan(rs.getString("dan"));
                 int index=rs.getInt("idInstruktor");
@@ -102,7 +101,7 @@ public class DostupanDao implements Dao<Dostupan>{
                 Dostupan dostupan=new Dostupan();
                 dostupan.setId(rs.getInt("idDostupan"));
                 dostupan.setDan(rs.getString("dan"));
-                InstruktorDao instruktor=new InstruktorDao();
+                InstruktorDaoSQLImpl instruktor=new InstruktorDaoSQLImpl();
                 dostupan.setIns(instruktor.getbyId(rs.getInt("idInstruktor")));
                 lista.add(dostupan);
             }
