@@ -4,9 +4,12 @@ import ba.unsa.etf.rpr.tabele.Dostupan;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class DostupanDaoSQLImpl implements DostupanDao{
@@ -14,12 +17,15 @@ public class DostupanDaoSQLImpl implements DostupanDao{
 
     public DostupanDaoSQLImpl() {
         try{
-            File f = new File("konekcija.txt");
-            Scanner ulaz = new Scanner(f);
-            con = DriverManager.getConnection(ulaz.nextLine(), ulaz.nextLine(), ulaz.nextLine());
+            FileReader f = new FileReader("konekcija.properties");
+            Properties pr=new Properties();
+            pr.load(f);
+            con=DriverManager.getConnection(pr.getProperty("url"),pr.getProperty("username"), pr.getProperty("password"));
         }
         catch(SQLException | FileNotFoundException e){
             System.out.println(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
