@@ -4,9 +4,12 @@ import ba.unsa.etf.rpr.tabele.Instruktor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class InstruktorDaoSQLImpl implements InstruktorDao {
@@ -14,16 +17,17 @@ public class InstruktorDaoSQLImpl implements InstruktorDao {
 
     public InstruktorDaoSQLImpl(){
         try {
-            File f = new File("konekcija.txt");
-            Scanner ulaz = new Scanner(f);
-            con = DriverManager.getConnection(ulaz.nextLine(), ulaz.nextLine(), ulaz.nextLine());
+            FileReader f = new FileReader("konekcija.properties");
+            Properties pr=new Properties();
+            pr.load(f);
+            con=DriverManager.getConnection(pr.getProperty("url"),pr.getProperty("username"), pr.getProperty("password"));
         }
-        catch(SQLException e){
+        catch(SQLException | FileNotFoundException e){
             System.out.println("Greska prilikom rada sa bazom podataka");
             System.out.println(e.getMessage());
         }
-        catch(FileNotFoundException n){
-            System.out.println(n.getMessage());
+        catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
