@@ -2,30 +2,28 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.tabele.Predmet;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Properties;
 
 
 public class PredmetDaoSQLImpl implements PredmetDao{
     private Connection con;
     public PredmetDaoSQLImpl() {
         try{
-            File f=new File("konekcija.txt");
-            Scanner ulaz=new Scanner(f);
-            String link="", username="",sifra="";
-            link=ulaz.nextLine();
-            username=ulaz.nextLine();
-            sifra= ulaz.nextLine();
-            con=DriverManager.getConnection(link,username,sifra);
+            FileReader f = new FileReader("konekcija.properties");
+            Properties pr=new Properties();
+            pr.load(f);
+            con=DriverManager.getConnection(pr.getProperty("url"),pr.getProperty("username"), pr.getProperty("password"));
         }
         catch(SQLException e){
             System.out.println("Greska prilikom rada sa bazom podataka");
             System.out.println(e.getMessage());
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
