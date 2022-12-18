@@ -125,9 +125,24 @@ public class PredmetDaoSQLImpl implements PredmetDao{
                 return id;
             }
         } catch (SQLException e) {
-            System.out.println("Problem pri radu sa bazom podataka");
             System.out.println(e.getMessage());
         }
         return id;
+    }
+    public List<Integer> getIds(Predmet p) {
+        List<Integer> ids=new ArrayList<>();
+        try {
+            PreparedStatement statement = con.prepareStatement("SELECT idPredmet FROM Predmet WHERE nivo_skolovanja=? AND naziv_predmeta=?");
+            statement.setString(1, p.getNivoSkolovanja());
+            statement.setString(2, p.getNazivPredmeta());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                ids.add(rs.getInt(1));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ids;
     }
 }
