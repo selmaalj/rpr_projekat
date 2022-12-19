@@ -1,8 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.tabele.Predmet;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -13,6 +11,7 @@ import java.util.Properties;
 
 public class PredmetDaoSQLImpl implements PredmetDao{
     private Connection con;
+    private static PredmetDaoSQLImpl instance=null;
     public PredmetDaoSQLImpl() {
         try{
             FileReader f = new FileReader("konekcija.properties");
@@ -26,6 +25,15 @@ public class PredmetDaoSQLImpl implements PredmetDao{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static PredmetDaoSQLImpl getInstance(){
+        if(instance==null)
+            instance=new PredmetDaoSQLImpl();
+        return instance;
+    }
+    public static void removeInstance() throws SQLException {
+        instance.con.close();
+        instance=null;
     }
     @Override
     public Predmet getbyId(int id) {
@@ -129,20 +137,20 @@ public class PredmetDaoSQLImpl implements PredmetDao{
         }
         return id;
     }
-    public List<Integer> getIds(Predmet p) {
-        List<Integer> ids=new ArrayList<>();
+    @Override
+    public int getId(String predmet, String nivo) {
+        int indeks=-1;
         try {
-            PreparedStatement statement = con.prepareStatement("SELECT idPredmet FROM Predmet WHERE nivo_skolovanja=? AND naziv_predmeta=?");
-            statement.setString(1, p.getNivoSkolovanja());
-            statement.setString(2, p.getNazivPredmeta());
+            PreparedStatement statement = con.prepareStatement("SELECT idPredmet FROM Predmet WHERE nivo_skolovanja=? AND Lower(naziv_predmeta)=?");
+            statement.setString(1, nivo);
+            statement.setString(2, predmet.toLowerCase());
             ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                ids.add(rs.getInt(1));
-            }
+            if(rs.next())
+            indeks=rs.getInt("idPredmet");
             rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return ids;
+        return indeks;
     }
 }
