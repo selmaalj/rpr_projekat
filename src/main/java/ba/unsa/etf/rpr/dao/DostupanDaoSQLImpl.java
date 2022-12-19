@@ -1,8 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.tabele.Dostupan;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,10 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
 
 public class DostupanDaoSQLImpl implements DostupanDao{
-    Connection con;
+    private Connection con;
+    private static DostupanDaoSQLImpl instance=null;
 
     public DostupanDaoSQLImpl() {
         try{
@@ -28,7 +26,15 @@ public class DostupanDaoSQLImpl implements DostupanDao{
             throw new RuntimeException(e);
         }
     }
-
+    public static DostupanDaoSQLImpl getInstance(){
+        if(instance==null)
+            instance=new DostupanDaoSQLImpl();
+        return instance;
+    }
+    public static void removeInstance() throws SQLException {
+        instance.con.close();
+        instance=null;
+    }
     @Override
     public Dostupan getbyId(int id) {
         try{
