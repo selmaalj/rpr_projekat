@@ -5,5 +5,5 @@ import ba.unsa.etf.rpr.tabele.Predmet;
 import java.util.List;
 
 public interface PredmetDao extends Dao<Predmet>{
-    public List<Integer> getIds(Predmet p);
+    public int getId(String predmet, String nivo);
 }
