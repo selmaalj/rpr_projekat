@@ -49,6 +49,7 @@ public class InstruktorDaoSQLImpl implements InstruktorDao {
                 instruktor.setCijenaPoCasu(rs.getDouble("cijena_po_casu"));
                 instruktor.setNazivInstruktora(rs.getString("naziv_instruktora"));
                 instruktor.setTelefonskiBroj(rs.getString("telefonski_broj"));
+                instruktor.setGrad(rs.getString("grad"));
                 rs.close();
                 return instruktor;
             }
@@ -63,11 +64,12 @@ public class InstruktorDaoSQLImpl implements InstruktorDao {
     @Override
     public Instruktor add(Instruktor element) {
         try{
-            PreparedStatement statement=con.prepareStatement("INSERT INTO Instruktor VALUES( ? , ? , ? , ? )");
+            PreparedStatement statement=con.prepareStatement("INSERT INTO Instruktor VALUES( ? , ? , ? , ? , ?)");
             statement.setInt(1, getMaxId());
             statement.setString(2,element.getNazivInstruktora());
             statement.setString(3, element.getTelefonskiBroj());
             statement.setDouble(4,element.getCijenaPoCasu());
+            statement.setString(5, element.getGrad());
             element.setIdInstruktor(getMaxId());
             statement.executeUpdate();
             return element;
@@ -81,11 +83,12 @@ public class InstruktorDaoSQLImpl implements InstruktorDao {
     @Override
     public Instruktor update(Instruktor element) {
         try{
-            PreparedStatement statement= con.prepareStatement("UPDATE Instruktor SET naziv_instruktora=?,telefonski_broj=?,cijena_po_casu=? WHERE idInstruktor=?");
+            PreparedStatement statement= con.prepareStatement("UPDATE Instruktor SET naziv_instruktora=?,telefonski_broj=?,cijena_po_casu=?, grad=? WHERE idInstruktor=?");
             statement.setString(1,element.getNazivInstruktora());
             statement.setString(2, element.getTelefonskiBroj());
             statement.setDouble(3,element.getCijenaPoCasu());
             statement.setInt(4,element.getIdInstruktor());
+            statement.setString(5, element.getGrad());
             statement.executeUpdate();
             return element;
         }
@@ -94,7 +97,6 @@ public class InstruktorDaoSQLImpl implements InstruktorDao {
         }
         return null;
     }
-
     @Override
     public void delete(int id) {
         try{
@@ -119,6 +121,7 @@ public class InstruktorDaoSQLImpl implements InstruktorDao {
                 instruktor.setNazivInstruktora(rs.getString("naziv_instruktora"));
                 instruktor.setTelefonskiBroj(rs.getString("telefonski_broj"));
                 instruktor.setCijenaPoCasu(rs.getDouble("cijena_po_casu"));
+                instruktor.setGrad(rs.getString("grad"));
                 lista.add(instruktor);
             }
             rs.close();
