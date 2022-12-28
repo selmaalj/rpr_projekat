@@ -7,15 +7,22 @@ public class Instruktor {
     private String nazivInstruktora;
     private String telefonskiBroj;
     private Double cijenaPoCasu;
+    private String grad;
 
-    public Instruktor(int idInstruktor, String nazivInstruktora, String telefonskiBroj, Double cijenaPoCasu) {
+    public Instruktor(int idInstruktor, String nazivInstruktora, String telefonskiBroj, Double cijenaPoCasu, String grad) {
         this.idInstruktor = idInstruktor;
         this.nazivInstruktora = nazivInstruktora;
         this.telefonskiBroj = telefonskiBroj;
         this.cijenaPoCasu = cijenaPoCasu;
+        this.grad = grad;
     }
-
     public Instruktor() {};
+    public String getGrad() {
+        return grad;
+    }
+    public void setGrad(String grad) {
+        this.grad = grad;
+    }
     public int getIdInstruktor() {
         return idInstruktor;
     }
