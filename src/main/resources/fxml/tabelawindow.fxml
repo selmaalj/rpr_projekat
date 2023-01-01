@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import javafx.scene.control.TableColumn?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.controllers.SecondWindowController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.controllers.TabelaInstruktora">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="10.0" percentWidth="100.0" prefWidth="255.0" />
   </columnConstraints>
