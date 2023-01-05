@@ -19,41 +19,26 @@ public class TabelaInstruktora {
     public TableColumn<Model, String> telefon;
     public TableColumn<Model, Double> cijena;
     private MedjutabelaDaoSQLImpl m;
+    private PredmetDaoSQLImpl pd;
     private ObservableList<Model> ob;
 
     @FXML
     public void initialize() {
         SingletonKlasa sk = SingletonKlasa.getInstance();
-        PredmetDaoSQLImpl pd = new PredmetDaoSQLImpl();
-        try {
-            int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
-            if (id == -1) {
-                throw new Izuzetak("Nemamo traženi predmet u ponudi.");
-            }
-
-            m = new MedjutabelaDaoSQLImpl();
-            List<Integer> instruktorIds = m.getbyPredmet(id);
-
-            if (instruktorIds.isEmpty()) {
-                throw new Izuzetak("Trenutno nemamo instruktora za vaše zahtjeve.");
-            }
-
+        pd = new PredmetDaoSQLImpl();
+        int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
+        m = new MedjutabelaDaoSQLImpl();
+        List<Integer> instruktorIds = m.getbyPredmet(id);
             for (int i = 0; i < instruktorIds.size(); i++) {
                 InstruktorDaoSQLImpl ins = new InstruktorDaoSQLImpl();
                 if (!(sk.getGrad().equals(ins.getbyId(instruktorIds.get(i)).getGrad()))) {
                     instruktorIds.remove(i--);
                 }
             }
-
-            if (instruktorIds.isEmpty()) {
-                throw new Izuzetak("Trenutno nemamo instruktora u vašem gradu.");
-            }
-
             ob = FXCollections.observableArrayList();
             this.naziv.setCellValueFactory(new PropertyValueFactory<Model, String>("naziv"));
             this.telefon.setCellValueFactory(new PropertyValueFactory<Model, String>("telefon"));
             this.cijena.setCellValueFactory(new PropertyValueFactory<Model, Double>("cijena"));
-
             for (Integer el : instruktorIds) {
                 InstruktorDaoSQLImpl ins = new InstruktorDaoSQLImpl();
                 ob.add(new Model(ins.getbyId(el).getNazivInstruktora(), ins.getbyId(el).getTelefonskiBroj(), ins.getbyId(el).getCijenaPoCasu()));
@@ -61,12 +46,4 @@ public class TabelaInstruktora {
             tableview.setItems(ob);
             tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
-        catch(Izuzetak e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.show();
-        }
-    }
 }
