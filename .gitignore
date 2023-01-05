@@ -3,4 +3,5 @@
 /target/
 /konekcija.properties
 /konekcija.txt
-
+/src/main/resources/client_secret_813826629661-tranqa2tap7lj55gchvoc33uvmhlbbb7.apps.googleusercontent.com.json
+/tokens/
