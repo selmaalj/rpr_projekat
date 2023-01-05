@@ -2,15 +2,15 @@ package ba.unsa.etf.rpr.tabele;
 
 import java.util.Objects;
 
-public class Instruktor {
-    private int idInstruktor;
+public class Instruktor implements Idable{
+    private int id;
     private String nazivInstruktora;
     private String telefonskiBroj;
     private Double cijenaPoCasu;
     private String grad;
 
-    public Instruktor(int idInstruktor, String nazivInstruktora, String telefonskiBroj, Double cijenaPoCasu, String grad) {
-        this.idInstruktor = idInstruktor;
+    public Instruktor(int id, String nazivInstruktora, String telefonskiBroj, Double cijenaPoCasu, String grad) {
+        this.id = id;
         this.nazivInstruktora = nazivInstruktora;
         this.telefonskiBroj = telefonskiBroj;
         this.cijenaPoCasu = cijenaPoCasu;
@@ -23,12 +23,12 @@ public class Instruktor {
     public void setGrad(String grad) {
         this.grad = grad;
     }
-    public int getIdInstruktor() {
-        return idInstruktor;
+    public int getId() {
+        return id;
     }
 
-    public void setIdInstruktor(int idInstruktor) {
-        this.idInstruktor = idInstruktor;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNazivInstruktora() {
@@ -57,7 +57,7 @@ public class Instruktor {
     @Override
     public String toString() {
         return "Instruktor{" +
-                "idInstruktor=" + idInstruktor +
+                "id=" + id +
                 ", nazivInstruktora='" + nazivInstruktora + '\'' +
                 ", telefonskiBroj='" + telefonskiBroj + '\'' +
                 ", cijenaPoCasu=" + cijenaPoCasu +
@@ -69,11 +69,11 @@ public class Instruktor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Instruktor instruktor = (Instruktor) o;
-        return idInstruktor == instruktor.idInstruktor;
+        return id == instruktor.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idInstruktor, nazivInstruktora, telefonskiBroj, cijenaPoCasu);
+        return Objects.hash(id, nazivInstruktora, telefonskiBroj, cijenaPoCasu);
     }
 }

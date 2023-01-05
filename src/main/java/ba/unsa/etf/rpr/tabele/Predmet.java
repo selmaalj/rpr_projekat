@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.tabele;
 
 import java.util.Objects;
 
-public class Predmet {
+public class Predmet implements Idable{
     private int id;
     private String nazivPredmeta;
     private String nivoSkolovanja;

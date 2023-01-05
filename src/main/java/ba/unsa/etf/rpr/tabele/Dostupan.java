@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.tabele;
 
 import java.util.Objects;
 
-public class Dostupan {
+public class Dostupan implements Idable{
     private int id;
     private String dan;
     private Instruktor ins;
