@@ -33,8 +33,8 @@ public class Dostupan implements Idable{
         return ins;
     }
 
-    public void setIns(Instruktor ins) {
-        this.ins = ins;
+    public void setIns(Object ins) {
+        this.ins = (Instruktor) ins;
     }
 
     @Override
