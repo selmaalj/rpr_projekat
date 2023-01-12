@@ -2,6 +2,8 @@ package ba.unsa.etf.rpr.controllers;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,22 +25,25 @@ public class Korisnik {
     public Text text;
     public TextField textfield;
     public Separator separator;
+    public TextField sliderText;
 
     @FXML
     void initialize() {
+        slider.setValue(0);
         choiceBox1.getItems().addAll("Osnovna", "Srednja", "Fakultet");
         choiceBox1.getSelectionModel().select(0);
         choiceBox2.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
         choiceBox2.getSelectionModel().select(0);
-        slider.setMin(5.);
-        slider.setMax(65.);
-        slider.setBlockIncrement(10);
-        slider.setShowTickLabels(true);
-        slider.setShowTickMarks(true);
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
+               sliderText.setText(String.valueOf(Math.round((Double)new_val)));
+            }
+        });
+
     }
 
     public void akcijaDugmeta(ActionEvent actionEvent) throws IOException {
-        SingletonKlasa sk = SingletonKlasa.getInstance();
+        PrenosPodataka sk = PrenosPodataka.getInstance();
         Node node = (Node) actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         sk.setCijena(slider.getValue());
@@ -47,15 +52,15 @@ public class Korisnik {
         sk.setPredmet(textfield.getText());
         stage.close();
         try {
-            PredmetDaoSQLImpl pd = new PredmetDaoSQLImpl();
+            PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
             int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
             if (id == -1) throw new Izuzetak("Nemamo traženi predmet u ponudi.");
             MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
             List<Integer> instruktorIds = m.getbyPredmet(id);
             if (instruktorIds.isEmpty()) throw new Izuzetak("Trenutno nemamo instruktora za vaše zahtjeve.");
             for (int i = 0; i < instruktorIds.size(); i++) {
-                InstruktorDaoSQLImpl ins = new InstruktorDaoSQLImpl();
-                if (!(sk.getGrad().equals(ins.getbyId(instruktorIds.get(i)).getGrad()))) {
+                InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
+                if (!(sk.getGrad().equals(ins.getById(instruktorIds.get(i)).getGrad()))) {
                     instruktorIds.remove(i--);
                 }
             }
