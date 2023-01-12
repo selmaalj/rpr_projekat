@@ -6,7 +6,6 @@ import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,30 +17,27 @@ public class TabelaInstruktora {
     public TableColumn<Model, String> naziv;
     public TableColumn<Model, String> telefon;
     public TableColumn<Model, Double> cijena;
-    private MedjutabelaDaoSQLImpl m;
-    private PredmetDaoSQLImpl pd;
-    private ObservableList<Model> ob;
 
     @FXML
     public void initialize() {
         SingletonKlasa sk = SingletonKlasa.getInstance();
-        pd = new PredmetDaoSQLImpl();
+        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
-        m = new MedjutabelaDaoSQLImpl();
+        MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
         List<Integer> instruktorIds = m.getbyPredmet(id);
             for (int i = 0; i < instruktorIds.size(); i++) {
-                InstruktorDaoSQLImpl ins = new InstruktorDaoSQLImpl();
-                if (!(sk.getGrad().equals(ins.getbyId(instruktorIds.get(i)).getGrad()))) {
+                InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
+                if (!(sk.getGrad().equals(ins.getById(instruktorIds.get(i)).getGrad()))) {
                     instruktorIds.remove(i--);
                 }
             }
-            ob = FXCollections.observableArrayList();
-            this.naziv.setCellValueFactory(new PropertyValueFactory<Model, String>("naziv"));
-            this.telefon.setCellValueFactory(new PropertyValueFactory<Model, String>("telefon"));
-            this.cijena.setCellValueFactory(new PropertyValueFactory<Model, Double>("cijena"));
+        ObservableList<Model> ob = FXCollections.observableArrayList();
+            this.naziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
+            this.telefon.setCellValueFactory(new PropertyValueFactory<>("telefon"));
+            this.cijena.setCellValueFactory(new PropertyValueFactory<>("cijena"));
             for (Integer el : instruktorIds) {
-                InstruktorDaoSQLImpl ins = new InstruktorDaoSQLImpl();
-                ob.add(new Model(ins.getbyId(el).getNazivInstruktora(), ins.getbyId(el).getTelefonskiBroj(), ins.getbyId(el).getCijenaPoCasu()));
+                InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
+                ob.add(new Model(ins.getById(el).getNazivInstruktora(), ins.getById(el).getTelefonskiBroj(), ins.getById(el).getCijenaPoCasu()));
             }
             tableview.setItems(ob);
             tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
