@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.controllers.Izuzetak;
 import ba.unsa.etf.rpr.tabele.Idable;
 
+import java.io.File;
+import java.io.FileReader;
 import java.sql.*;
 import java.util.*;
 
@@ -18,11 +20,12 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
     private static void createConnection(){
         if(AbstractDao.connection==null) {
             try {
+                FileReader f=new FileReader(new File("konekcija.properties"));
                 Properties p = new Properties();
-                p.load(ClassLoader.getSystemResource("application.properties").openStream());
-                String url = p.getProperty("db.connection_string");
-                String username = p.getProperty("db.username");
-                String password = p.getProperty("db.password");
+                p.load(f);
+                String url = p.getProperty("url");
+                String username = p.getProperty("username");
+                String password = p.getProperty("password");
                 AbstractDao.connection = DriverManager.getConnection(url, username, password);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,7 +86,6 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
 
         try{
             PreparedStatement stmt = getConnection().prepareStatement(builder.toString(), Statement.RETURN_GENERATED_KEYS);
-            // bind params. IMPORTANT treeMap is used to keep columns sorted so params are bind correctly
             int counter = 1;
             for (Map.Entry<String, Object> entry: row.entrySet()) {
                 if (entry.getKey().equals("id")) continue; // skip ID
@@ -93,8 +95,8 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
-            rs.next(); // we know that there is one key
-            item.setId(rs.getInt(1)); //set id to return it back */
+            rs.next();
+            item.setId(rs.getInt(1));
 
             return item;
         }catch (SQLException e){
@@ -163,7 +165,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
         int counter = 0;
         for (Map.Entry<String, Object> entry: row.entrySet()) {
             counter++;
-            if (entry.getKey().equals("id")) continue; //skip insertion of id due autoincrement
+            if (entry.getKey().equals("id")) continue;
             columns.append(entry.getKey());
             questions.append("?");
             if (row.size() != counter) {
@@ -180,7 +182,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
         int counter = 0;
         for (Map.Entry<String, Object> entry: row.entrySet()) {
             counter++;
-            if (entry.getKey().equals("id")) continue; //skip update of id due where clause
+            if (entry.getKey().equals("id")) continue;
             columns.append(entry.getKey()).append("= ?");
             if (row.size() != counter) {
                 columns.append(",");
