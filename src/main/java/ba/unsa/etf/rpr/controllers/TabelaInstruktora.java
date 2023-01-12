@@ -20,7 +20,7 @@ public class TabelaInstruktora {
 
     @FXML
     public void initialize() {
-        SingletonKlasa sk = SingletonKlasa.getInstance();
+        PrenosPodataka sk = PrenosPodataka.getInstance();
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
         MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
