@@ -1,12 +1,12 @@
 package ba.unsa.etf.rpr.controllers;
 
-public final class SingletonKlasa { //za prenos podataka
-    private String predmet, dan, nivo;
+public final class PrenosPodataka {
+    private String predmet, grad, nivo;
     private double cijena;
-    private final static SingletonKlasa instance=new SingletonKlasa();
-    private SingletonKlasa(){}
+    private final static PrenosPodataka instance=new PrenosPodataka();
+    private PrenosPodataka(){}
 
-    public static SingletonKlasa getInstance() {
+    public static PrenosPodataka getInstance() {
         return instance;
     }
 
@@ -18,12 +18,12 @@ public final class SingletonKlasa { //za prenos podataka
         this.predmet = predmet;
     }
 
-    public String getDan() {
-        return dan;
+    public String getGrad() {
+        return grad;
     }
 
-    public void setDan(String dan) {
-        this.dan = dan;
+    public void setGrad(String dan) {
+        this.grad = dan;
     }
 
     public String getNivo() {
