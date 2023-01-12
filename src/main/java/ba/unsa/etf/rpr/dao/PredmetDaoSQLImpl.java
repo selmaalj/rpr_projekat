@@ -1,152 +1,61 @@
 package ba.unsa.etf.rpr.dao;
 
+import ba.unsa.etf.rpr.controllers.Izuzetak;
 import ba.unsa.etf.rpr.tabele.Predmet;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.Map;
+import java.util.TreeMap;
 
 
-public class PredmetDaoSQLImpl implements PredmetDao{
-    private Connection con;
-    private static PredmetDaoSQLImpl instance=null;
-    public PredmetDaoSQLImpl() {
-        try{
-            FileReader f = new FileReader("konekcija.properties");
-            Properties pr=new Properties();
-            pr.load(f);
-            con=DriverManager.getConnection(pr.getProperty("url"),pr.getProperty("username"), pr.getProperty("password"));
-        }
-        catch(SQLException e){
-            System.out.println("Greska prilikom rada sa bazom podataka");
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+public class PredmetDaoSQLImpl extends AbstractDao<Predmet> implements PredmetDao{
+    private static  PredmetDaoSQLImpl instance = null;
+    private PredmetDaoSQLImpl() {
+        super("Predmet");
     }
     public static PredmetDaoSQLImpl getInstance(){
         if(instance==null)
-            instance=new PredmetDaoSQLImpl();
+            instance = new PredmetDaoSQLImpl();
         return instance;
     }
-    public static void removeInstance() throws SQLException {
-        instance.con.close();
-        instance=null;
-    }
-    @Override
-    public Predmet getbyId(int id) {
-        try{
-            PreparedStatement statement=this.con.prepareStatement("SELECT * FROM Predmet WHERE idPredmet = ?");
-            statement.setInt(1,id);
-            ResultSet rs=statement.executeQuery();
-            if(rs.next()){
-                Predmet predmet=new Predmet();
-                predmet.setId(rs.getInt("idPredmet"));
-                predmet.setNazivPredmeta(rs.getString("naziv_predmeta"));
-                predmet.setNivoSkolovanja(rs.getString("nivo_skolovanja"));
-                rs.close();
-                return predmet;
-            }
-            else {
-                return null; //nema elemenata
-            }
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-    @Override
-    public Predmet add(Predmet element) {
-        try{
-            PreparedStatement statement=this.con.prepareStatement("INSERT INTO Predmet VALUES( ? , ? , ? )");
-            statement.setInt(1,getMaxId());
-            statement.setString(2,element.getNazivPredmeta());
-            statement.setString(3, element.getNivoSkolovanja());
-            element.setId(getMaxId());
-            statement.executeUpdate();
-            return element;
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
 
-    @Override
-    public Predmet update(Predmet element) {
-        try{
-            PreparedStatement statement=con.prepareStatement("UPDATE Predmet SET naziv_predmeta=?,nivo_skolovanja=? WHERE idPredmet=?");
-            statement.setString(1, element.getNazivPredmeta());
-            statement.setString(2, element.getNivoSkolovanja());
-            statement.setInt(3, element.getId());
-            statement.executeUpdate();
-            return element;
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public static void removeInstance(){
+        if(instance!=null)
+            instance=null;
     }
     @Override
-    public void delete(int id) {
-        try{
-            PreparedStatement statement=this.con.prepareStatement("DELETE FROM Predmet WHERE idPredmet = ?");
-            statement.setInt(1,id);
-            statement.executeUpdate();
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @Override
-    public List getAll() {
-        List<Predmet> lista=new ArrayList<>();
-        try{
-            PreparedStatement statement=this.con.prepareStatement("SELECT * FROM Predmet");
-            ResultSet rs=statement.executeQuery(); //cita slog po slog
-            while(rs.next()){
-                Predmet predmet=new Predmet();
-                predmet.setId(rs.getInt("idPredmet"));
-                predmet.setNivoSkolovanja(rs.getString("nivo_skolovanja"));
-                predmet.setNazivPredmeta(rs.getString("naziv_predmeta"));
-                lista.add(predmet);
-            }
-            rs.close();
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return lista;
-    }
-    private int getMaxId(){
-        int id=1;
+    public Predmet row2object(ResultSet rs) throws Izuzetak {
         try {
-            PreparedStatement statement = this.con.prepareStatement("SELECT MAX(idPredmet)+1 FROM Predmet");
-            ResultSet rs = statement.executeQuery();
-            if(rs.next()) {
-                id = rs.getInt(1);
-                rs.close();
-                return id;
-            }
+            Predmet p=new Predmet();
+            p.setId(rs.getInt("id"));
+            p.setNazivPredmeta(rs.getString("naziv"));
+            p.setNivoSkolovanja(rs.getString("nivo"));
+            return p;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new Izuzetak(e.getMessage());
         }
-        return id;
     }
+
+    @Override
+    public Map<String, Object> object2row(Predmet object) {
+        Map<String, Object> row = new TreeMap<>();
+        row.put("id", object.getId());
+        row.put("naziv", object.getNazivPredmeta());
+        row.put("nivo", object.getNivoSkolovanja());
+        return row;
+    }
+
     @Override
     public int getId(String predmet, String nivo) {
         int indeks=-1;
         try {
-            PreparedStatement statement = con.prepareStatement("SELECT idPredmet FROM Predmet WHERE nivo_skolovanja=? AND Lower(naziv_predmeta)=?");
+            Connection con=AbstractDao.getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT id FROM Predmet WHERE nivo=? AND Lower(naziv)=?");
             statement.setString(1, nivo);
             statement.setString(2, predmet.toLowerCase());
             ResultSet rs = statement.executeQuery();
             if(rs.next())
-            indeks=rs.getInt("idPredmet");
+            indeks=rs.getInt("id");
             rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
