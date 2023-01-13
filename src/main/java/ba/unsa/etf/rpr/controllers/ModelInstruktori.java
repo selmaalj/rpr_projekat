@@ -2,11 +2,11 @@ package ba.unsa.etf.rpr.controllers;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Model {
+public class ModelInstruktori {
     private SimpleStringProperty naziv, telefon;
     private SimpleDoubleProperty cijena;
-    public Model(){};
-    public Model(String naziv, String telefon, Double cijena) {
+    public ModelInstruktori(){};
+    public ModelInstruktori(String naziv, String telefon, Double cijena) {
         this.naziv = new SimpleStringProperty(naziv);
         this.telefon = new SimpleStringProperty(telefon);
         this.cijena = new SimpleDoubleProperty(cijena);
