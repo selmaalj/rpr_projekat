@@ -32,7 +32,7 @@
       <RowConstraints />
     </rowConstraints>
    <children>
-      <ChoiceBox fx:id="choiceBox1" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="274.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" />
+      <ChoiceBox fx:id="choiceBoxNivo" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="274.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" />
       <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite stepen školovanja:" textAlignment="JUSTIFY" wrappingWidth="294.763671875" GridPane.columnSpan="2">
          <font>
             <Font size="14.0" />
@@ -41,7 +41,7 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <TextField fx:id="textfield" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="208.0" promptText="Predmet" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+      <TextField fx:id="predmetfield" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="208.0" promptText="Predmet" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite maximalnu cijene po času:" textAlignment="JUSTIFY" wrappingWidth="295.9830722808838" GridPane.rowIndex="4">
          <font>
             <Font size="14.0" />
@@ -50,7 +50,7 @@
       <Separator fx:id="separator" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1" />
       <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="3" />
       <Separator prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="5" />
-      <ChoiceBox fx:id="choiceBox2" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="288.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS" />
+      <ChoiceBox fx:id="choiceBoxGrad" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="288.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite grad: " wrappingWidth="291.1341133117676" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
          <font>
             <Font size="14.0" />
