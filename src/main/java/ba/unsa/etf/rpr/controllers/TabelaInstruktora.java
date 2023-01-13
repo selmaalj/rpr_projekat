@@ -4,23 +4,33 @@ import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
 import ba.unsa.etf.rpr.tabele.Instruktor;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.List;
 
 public class TabelaInstruktora {
     @FXML
-    private TableView<Model> tableview;
-    public TableColumn<Model, String> naziv;
-    public TableColumn<Model, String> telefon;
-    public TableColumn<Model, Double> cijena;
+    private TableView<ModelInstruktori> tableview;
+    public TableColumn<ModelInstruktori, String> naziv;
+    public TableColumn<ModelInstruktori, String> telefon;
+    public TableColumn<ModelInstruktori, Double> cijena;
+    public static Instruktor instruktor;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         PrenosPodataka sk = PrenosPodataka.getInstance();
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
@@ -32,15 +42,37 @@ public class TabelaInstruktora {
                     instruktorIds.remove(i--);
                 }
             }
-        ObservableList<Model> ob = FXCollections.observableArrayList();
+        ObservableList<ModelInstruktori> ob = FXCollections.observableArrayList();
             this.naziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
             this.telefon.setCellValueFactory(new PropertyValueFactory<>("telefon"));
             this.cijena.setCellValueFactory(new PropertyValueFactory<>("cijena"));
             for (Integer el : instruktorIds) {
                 InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
-                ob.add(new Model(ins.getById(el).getNazivInstruktora(), ins.getById(el).getTelefonskiBroj(), ins.getById(el).getCijenaPoCasu()));
+                ob.add(new ModelInstruktori(ins.getById(el).getNazivInstruktora(), ins.getById(el).getTelefonskiBroj(), ins.getById(el).getCijenaPoCasu()));
             }
             tableview.setItems(ob);
+            tableview.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ModelInstruktori>() {
+                @Override
+                public void changed(ObservableValue<? extends ModelInstruktori> observableValue, ModelInstruktori oldval, ModelInstruktori newval) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/dostupan.fxml"));
+                    InstruktorDaoSQLImpl ins=InstruktorDaoSQLImpl.getInstance();
+                    instruktor=ins.getByNazivTel(newval.getNaziv(), newval.getTelefon());
+                    System.out.println(instruktor);
+                    Parent root;
+                    try {
+                        root = fxmlLoader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Scene scene = new Scene(root, 400, 300);
+                    Stage stage=new Stage();
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.setTitle("Izabrani instruktor:");
+                    stage.getIcons().add(new Image("file:///C:/Users/WIN10/Downloads/book.png"));
+                    stage.show();
+                }
+            });
             tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
 }
