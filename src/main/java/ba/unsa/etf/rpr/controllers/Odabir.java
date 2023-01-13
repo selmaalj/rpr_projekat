@@ -20,7 +20,7 @@ public class Odabir {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/korisnik.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Vaši instruktori!");
+        stage.setTitle("Popunite zahtjeve:");
         stage.setScene(scene);
         stage.show();
     }
@@ -30,7 +30,7 @@ public class Odabir {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/instruktor.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 600, 400);
-        //stage.setTitle("Vaši instruktori!");
+        stage.setTitle("Popunite podatke:");
         stage.setScene(scene);
         stage.show();
     }
