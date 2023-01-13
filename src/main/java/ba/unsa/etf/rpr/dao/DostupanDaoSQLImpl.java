@@ -2,8 +2,10 @@ package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.tabele.Dostupan;
 import ba.unsa.etf.rpr.controllers.Izuzetak;
+import ba.unsa.etf.rpr.tabele.Instruktor;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -46,5 +48,9 @@ public class DostupanDaoSQLImpl extends AbstractDao<Dostupan> implements Dostupa
         row.put("dan", object.getDan());
         row.put("idInstruktor", object.getIns().getId());
         return row;
+    }
+    @Override
+    public List<Dostupan> getByInstruktor(Instruktor ins){
+        return executeQuery("SELECT * FROM Dostupan WHERE idInstruktor=?;", new Object[]{ins.getId()});
     }
 }
