@@ -49,4 +49,8 @@ public class InstruktorDaoSQLImpl extends AbstractDao<Instruktor> implements Ins
         row.put("grad", object.getGrad());
         return row;
     }
+    @Override
+    public Instruktor getByNazivTel(String naziv,String tel){
+      return super.executeQueryUnique("SELECT * FROM Instruktor WHERE naziv=? AND broj=?;",new Object[]{naziv,tel});
+    }
 }
