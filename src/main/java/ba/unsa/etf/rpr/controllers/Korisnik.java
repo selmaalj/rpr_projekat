@@ -33,9 +33,10 @@ public class Korisnik {
         choiceBoxNivo.getSelectionModel().select(0);
         choiceBoxGrad.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
         choiceBoxGrad.getSelectionModel().select(0);
-        slider.valueProperty().addListener(new ChangeListener<Number>() {
+        sliderText.setText(String.valueOf(0));
+        slider.valueProperty().addListener(new ChangeListener<>() {
             public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-               sliderText.setText(String.valueOf(Math.round((Double)new_val)));
+                sliderText.setText(String.valueOf(Math.round((Double) new_val)));
             }
         });
 

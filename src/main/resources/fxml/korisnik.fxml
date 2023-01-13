@@ -42,7 +42,7 @@
             <Font size="14.0" />
          </font></Text>
       <TextField fx:id="predmetfield" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="208.0" promptText="Predmet" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite maximalnu cijene po času:" textAlignment="JUSTIFY" wrappingWidth="295.9830722808838" GridPane.rowIndex="4">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite maksimalnu cijenu po času:" textAlignment="JUSTIFY" wrappingWidth="295.9830722808838" GridPane.rowIndex="4">
          <font>
             <Font size="14.0" />
          </font></Text>
