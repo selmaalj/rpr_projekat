@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.controllers;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
+import ba.unsa.etf.rpr.tabele.Instruktor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,8 +27,8 @@ public class TabelaInstruktora {
         MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
         List<Integer> instruktorIds = m.getbyPredmet(id);
             for (int i = 0; i < instruktorIds.size(); i++) {
-                InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
-                if (!(sk.getGrad().equals(ins.getById(instruktorIds.get(i)).getGrad()))) {
+                Instruktor ins = InstruktorDaoSQLImpl.getInstance().getById(instruktorIds.get(i));
+                if (!(sk.getGrad().equals(ins.getGrad())) || (sk.getCijena()<ins.getCijenaPoCasu())) {
                     instruktorIds.remove(i--);
                 }
             }
