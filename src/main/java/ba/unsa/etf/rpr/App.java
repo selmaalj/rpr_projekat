@@ -15,11 +15,7 @@ public class App extends Application
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/odabirwindow.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 600, 400);
-        stage.setMinHeight(325);
-        stage.setMinWidth(475);
-        stage.setMaxHeight(500);
-        stage.setMaxWidth(700);
+        Scene scene = new Scene(root, 400, 200);
         stage.setResizable(false);
         stage.setTitle("Dobro došli!");
         stage.getIcons().add(new Image("file:///C:/Users/WIN10/Downloads/book.png"));
