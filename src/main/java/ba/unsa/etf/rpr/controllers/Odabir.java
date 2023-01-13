@@ -12,8 +12,9 @@ import java.io.IOException;
 public class Odabir {
     public Button korisnik;
     public Button instruktor;
+    public Button admin;
 
-    public void akcijaDugmeta1(ActionEvent actionEvent) throws IOException {
+    public void akcijaDugmetaIzaberi(ActionEvent actionEvent) throws IOException {
         Node node= (Node) actionEvent.getSource();
         Stage stage= (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/korisnik.fxml"));
@@ -23,7 +24,7 @@ public class Odabir {
         stage.setScene(scene);
         stage.show();
     }
-    public void akcijaDugmeta2(ActionEvent actionEvent) throws IOException {
+    public void akcijaDugmetaPrijavi(ActionEvent actionEvent) throws IOException {
         Node node= (Node) actionEvent.getSource();
         Stage stage= (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/instruktor.fxml"));
@@ -32,5 +33,7 @@ public class Odabir {
         //stage.setTitle("Vaši instruktori!");
         stage.setScene(scene);
         stage.show();
+    }
+    public void akcijaDugmetaAdmin(ActionEvent actionEvent) throws IOException {
     }
 }
