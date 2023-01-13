@@ -21,19 +21,18 @@ import java.util.List;
 public class Korisnik {
     public Button potvrda;
     public Slider slider;
-    public ChoiceBox<String> choiceBox1, choiceBox2;
+    public ChoiceBox<String> choiceBoxNivo, choiceBoxGrad;
     public Text text;
-    public TextField textfield;
-    public Separator separator;
+    public TextField predmetfield;
     public TextField sliderText;
 
     @FXML
     void initialize() {
         slider.setValue(0);
-        choiceBox1.getItems().addAll("Osnovna", "Srednja", "Fakultet");
-        choiceBox1.getSelectionModel().select(0);
-        choiceBox2.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
-        choiceBox2.getSelectionModel().select(0);
+        choiceBoxNivo.getItems().addAll("Osnovna", "Srednja", "Fakultet");
+        choiceBoxNivo.getSelectionModel().select(0);
+        choiceBoxGrad.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
+        choiceBoxGrad.getSelectionModel().select(0);
         slider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
                sliderText.setText(String.valueOf(Math.round((Double)new_val)));
@@ -46,25 +45,25 @@ public class Korisnik {
         PrenosPodataka sk = PrenosPodataka.getInstance();
         Node node = (Node) actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        sk.setCijena(slider.getValue());
-        sk.setGrad(choiceBox2.getValue());
-        sk.setNivo(choiceBox1.getValue());
-        sk.setPredmet(textfield.getText());
+        sk.setCijena(Double.parseDouble(sliderText.getText()));
+        sk.setGrad(choiceBoxGrad.getValue());
+        sk.setNivo(choiceBoxNivo.getValue());
+        sk.setPredmet(predmetfield.getText());
         stage.close();
         try {
             PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
             int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
-            if (id == -1) throw new Izuzetak("Nemamo traženi predmet u ponudi.");
+            if (id == -1) throw new Izuzetak("Nemamo predmet "+sk.getPredmet()+" u ponudi.");
             MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
             List<Integer> instruktorIds = m.getbyPredmet(id);
-            if (instruktorIds.isEmpty()) throw new Izuzetak("Trenutno nemamo instruktora za vaše zahtjeve.");
+            if (instruktorIds.isEmpty()) throw new Izuzetak("Trenutno nije slobodan nijedan instruktor za predmet "+sk.getPredmet()+".");
             for (int i = 0; i < instruktorIds.size(); i++) {
                 InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
                 if (!(sk.getGrad().equals(ins.getById(instruktorIds.get(i)).getGrad()))) {
                     instruktorIds.remove(i--);
                 }
             }
-            if (instruktorIds.isEmpty()) throw new Izuzetak("Trenutno nemamo instruktora u vašem gradu.");
+            if (instruktorIds.isEmpty()) throw new Izuzetak("Trenutno nemamo nijednog prijavljenog instruktora u gradu "+sk.getGrad()+" za predmet "+sk.getPredmet()+".");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tabelawindow.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root, 600, 400);
