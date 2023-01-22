@@ -20,19 +20,33 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
     private static void createConnection(){
         if(AbstractDao.connection==null) {
             try {
-                FileReader f=new FileReader(new File("konekcija.properties"));
+                FileReader f = new FileReader("konekcija.properties");
                 Properties p = new Properties();
                 p.load(f);
-                String url = p.getProperty("url");
+                String hostname = p.getProperty("url");
                 String username = p.getProperty("username");
                 String password = p.getProperty("password");
-                AbstractDao.connection = DriverManager.getConnection(url, username, password);
+                AbstractDao.connection = DriverManager.getConnection(hostname, username, password);
+
+                Thread pingThread = new Thread(() -> {
+                    try {
+                        while(connection != null){
+                            Statement s = connection.createStatement();
+                            s.execute("SELECT 1 FROM dual");
+                            System.out.println("pinging...");
+                            Thread.sleep(10000);
+                        }
+                    } catch (SQLException | InterruptedException ignored) {
+                    }
+                });
+                pingThread.start();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.exit(0);
             }
         }
     }
+
 
     public static Connection getConnection(){
         return AbstractDao.connection;
