@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -15,6 +16,8 @@ public class Instruktor {
     public TextField prezime;
     public TextField email;
     public TextField grad;
+    public TextField cijena;
+    public RadioButton ponedjeljak,utorak,srijeda,cetvrtak,petak,subota,nedjelja;
 
     @FXML
     void initialize() {
