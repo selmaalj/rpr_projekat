@@ -78,7 +78,13 @@ public class Korisnik {
             Stage st = (Stage) alert.getDialogPane().getScene().getWindow();
             st.getIcons().add(new Image("file:///C:/Users/WIN10/Downloads/book.png"));
             alert.setContentText(e.getMessage());
-            alert.show();
+            alert.showAndWait();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/korisnik.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setTitle("Popunite zahtjeve:");
+            stage.setScene(scene);
+            stage.show();
         }
     }
 }
