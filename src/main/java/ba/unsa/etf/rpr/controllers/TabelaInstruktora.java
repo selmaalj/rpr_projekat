@@ -51,12 +51,12 @@ public class TabelaInstruktora {
                 ob.add(new ModelInstruktori(ins.getById(el).getNazivInstruktora(), ins.getById(el).getTelefonskiBroj(), ins.getById(el).getCijenaPoCasu()));
             }
             tableview.setItems(ob);
-            tableview.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ModelInstruktori>() {
+            tableview.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
                 @Override
                 public void changed(ObservableValue<? extends ModelInstruktori> observableValue, ModelInstruktori oldval, ModelInstruktori newval) {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/dostupan.fxml"));
-                    InstruktorDaoSQLImpl ins=InstruktorDaoSQLImpl.getInstance();
-                    instruktor=ins.getByNazivTel(newval.getNaziv(), newval.getTelefon());
+                    InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
+                    instruktor = ins.getByNazivTel(newval.getNaziv(), newval.getTelefon());
                     System.out.println(instruktor);
                     Parent root;
                     try {
@@ -65,7 +65,7 @@ public class TabelaInstruktora {
                         throw new RuntimeException(e);
                     }
                     Scene scene = new Scene(root, 400, 300);
-                    Stage stage=new Stage();
+                    Stage stage = new Stage();
                     stage.setScene(scene);
                     stage.setResizable(false);
                     stage.setTitle("Izabrani instruktor:");
