@@ -35,5 +35,13 @@ public class Odabir {
         stage.show();
     }
     public void akcijaDugmetaAdmin(ActionEvent actionEvent) throws IOException {
+        Node node= (Node) actionEvent.getSource();
+        Stage stage= (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/adminprijava.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 400, 200);
+        stage.setTitle("Admin:");
+        stage.setScene(scene);
+        stage.show();
     }
 }
