@@ -8,11 +8,14 @@
 -fx-background-color: #C6A990 ;
 -fx-font-color: white;
 }
-.cell.selection{
--fx-column-header-background: green;
-}
 .label{
--fx-text-fill: white;
 -fx-font-family: Verdana;
 -fx-font-size: 14;
+}
+.table-view .table-column{
+-fx-alignment: CENTER;
+-fx-border-color: lightgrey;
+-fx-border-width: 1px 1px 1px 1px;
+-fx-border-style: solid;
+-fx-padding: 5px;
 }
