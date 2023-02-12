@@ -25,7 +25,7 @@ public class Instruktor {
 
     public void prijaviSeAction(ActionEvent actionEvent) throws Exception {
         GMailer gm=new GMailer();
-        gm.posaljiMail(ime.getText()+" "+prezime.getText()+"\n"+email.getText()+"\n"+grad.getText());
+        gm.posaljiMail("Podaci o instruktoru:"+"\nNaziv: "+ime.getText()+" "+prezime.getText()+"\nEmail adresa: "+email.getText()+"\nGrad: "+grad.getText()+"\nCijena po času: "+cijena.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
