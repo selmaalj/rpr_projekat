@@ -20,9 +20,8 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
     private static void createConnection(){
         if(AbstractDao.connection==null) {
             try {
-                FileReader f = new FileReader("konekcija.properties");
-                Properties p = new Properties();
-                p.load(f);
+                Properties p=new Properties();
+                p.load(ClassLoader.getSystemResource("konekcija.properties").openStream());
                 String hostname = p.getProperty("url");
                 String username = p.getProperty("username");
                 String password = p.getProperty("password");
