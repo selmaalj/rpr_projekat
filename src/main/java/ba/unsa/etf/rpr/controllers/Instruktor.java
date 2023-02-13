@@ -1,9 +1,11 @@
 package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.GMailer;
+import ba.unsa.etf.rpr.dao.DostupanDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
+import ba.unsa.etf.rpr.domain.Dostupan;
 import ba.unsa.etf.rpr.domain.Medjutabela;
 import ba.unsa.etf.rpr.domain.Predmet;
 import javafx.collections.FXCollections;
@@ -22,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,14 +59,24 @@ public class Instruktor {
         i.setGrad(grad.getText());
         i.setTelefonskiBroj(telefon.getText());
         i.setCijenaPoCasu(Double.parseDouble(cijena.getText()));
-        i=ins.add(i);
+        i = ins.add(i);
         ObservableList<String> ob = pregledListView.getItems();
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         for (String s : ob) {
-            int id= Integer.parseInt(s.split("\\.")[0]);
-            Predmet p=pd.getById(id);
-            MedjutabelaDaoSQLImpl.getInstance().add(new Medjutabela(p,i));
+            int id = Integer.parseInt(s.split("\\.")[0]);
+            Predmet p = pd.getById(id);
+            MedjutabelaDaoSQLImpl.getInstance().add(new Medjutabela(p, i));
         }
+        List<String> dani = new ArrayList<>();
+        if (ponedjeljak.isSelected()) dani.add("Ponedjeljak");
+        if (utorak.isSelected()) dani.add("Utorak");
+        if (srijeda.isSelected()) dani.add("Srijeda");
+        if (cetvrtak.isSelected()) dani.add("Cetvrtak");
+        if (petak.isSelected()) dani.add("Petak");
+        if (subota.isSelected()) dani.add("Subota");
+        if (nedjelja.isSelected()) dani.add("Nedjelja");
+        for (String s : dani)
+            DostupanDaoSQLImpl.getInstance().add(new Dostupan(0, s, i));
         GMailer gm = new GMailer();
         gm.posaljiMail("Podaci o instruktoru:" + "\nNaziv: " + ime.getText() + " " + prezime.getText() + "\nEmail adresa: " + email.getText() + "\nGrad: " + grad.getText() + "\nCijena po času: " + cijena.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
