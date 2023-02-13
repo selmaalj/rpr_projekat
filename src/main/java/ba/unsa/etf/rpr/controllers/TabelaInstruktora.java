@@ -8,8 +8,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -75,4 +77,26 @@ public class TabelaInstruktora {
             });
             tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
+
+    public void akcijaDugmetaNazad(ActionEvent actionEvent) throws IOException {
+        Node node= (Node) actionEvent.getSource();
+        Stage stage= (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/korisnik.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 600, 400);
+        stage.setTitle("Admin:");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void akcijaDugmetaPocetak(ActionEvent actionEvent) throws IOException {
+        Node node= (Node) actionEvent.getSource();
+        Stage stage= (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/odabirwindow.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 400, 200);
+        stage.setTitle("Admin:");
+        stage.setScene(scene);
+        stage.show();
+    }
 }
