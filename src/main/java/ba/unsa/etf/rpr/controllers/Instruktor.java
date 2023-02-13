@@ -70,5 +70,15 @@ public class Instruktor {
         stage.show();
     }
     public void akcijaDugmetaDodaj(ActionEvent actionEvent) {
+        ObservableList<String> ob= FXCollections.observableArrayList();
+        List<String> temp=predmetiListView.getSelectionModel().getSelectedItems();
+        ob=pregledListView.getItems();
+        for(String s: temp){
+            if(!ob.contains(s))
+                ob.add(s);
+        }
+        pregledListView.setItems(ob);
+        pregledListView.refresh();
+        predmetiListView.getSelectionModel().select(0);
     }
 }
