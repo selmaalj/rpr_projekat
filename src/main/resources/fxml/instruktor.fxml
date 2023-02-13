@@ -32,6 +32,7 @@
       <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -73,7 +74,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#prijaviSeAction" prefHeight="29.0" prefWidth="89.0" text="Prijavi se" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#prijaviSeAction" prefHeight="29.0" prefWidth="89.0" text="Prijavi se" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets bottom="15.0" right="15.0" />
          </GridPane.margin>
@@ -107,7 +108,7 @@
             <Insets left="15.0" right="15.0" />
          </GridPane.margin>
       </TextField>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
          <children>
             <RadioButton fx:id="ponedjeljak" mnemonicParsing="false" text="Pon">
                <HBox.margin>
@@ -146,7 +147,7 @@
             </RadioButton>
          </children>
       </HBox>
-      <Label prefHeight="17.0" prefWidth="215.0" text="Slobodni dani:" textFill="WHITE" GridPane.rowIndex="6">
+      <Label prefHeight="17.0" prefWidth="215.0" text="Slobodni dani:" textFill="WHITE" GridPane.rowIndex="7">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -157,7 +158,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Label>
-      <Button mnemonicParsing="false" onAction="#akcijaDugmetaNazad" text="Nazad" GridPane.rowIndex="8">
+      <Button mnemonicParsing="false" onAction="#akcijaDugmetaNazad" text="Nazad" GridPane.rowIndex="9">
          <font>
             <Font size="14.0" />
          </font>
@@ -165,16 +166,26 @@
             <Insets bottom="15.0" left="15.0" />
          </GridPane.margin>
       </Button>
-      <ListView fx:id="predmetiListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
+      <ListView fx:id="predmetiListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="6">
          <GridPane.margin>
             <Insets left="5.0" right="5.0" />
          </GridPane.margin>
       </ListView>
-      <Button mnemonicParsing="false" onAction="#akcijaDugmetaDodaj" text="Dodaj" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-      <ListView fx:id="pregledListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="5">
+      <Button mnemonicParsing="false" onAction="#akcijaDugmetaDodaj" text="Dodaj" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+      <ListView fx:id="pregledListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="6">
          <GridPane.margin>
             <Insets left="5.0" right="5.0" />
          </GridPane.margin>
       </ListView>
+      <Label prefHeight="18.0" prefWidth="166.0" text="Unesite broj telefona:" textFill="WHITE" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="telefon" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="15.0" right="15.0" />
+         </GridPane.margin>
+      </TextField>
    </children>
 </GridPane>
