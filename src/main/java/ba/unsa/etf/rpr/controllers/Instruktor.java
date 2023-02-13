@@ -16,10 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -32,7 +29,7 @@ public class Instruktor {
     public TextField ime;
     public TextField prezime;
     public TextField email;
-    public TextField grad;
+    public ChoiceBox<String> grad;
     public TextField cijena;
     public RadioButton ponedjeljak, utorak, srijeda, cetvrtak, petak, subota, nedjelja;
     public ListView predmetiListView;
@@ -49,6 +46,8 @@ public class Instruktor {
         }
         predmetiListView.setItems(ob);
         predmetiListView.getSelectionModel().select(0);
+        grad.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
+        grad.getSelectionModel().select(0);
     }
 
     public void prijaviSeAction(ActionEvent actionEvent) throws Exception {
@@ -56,7 +55,7 @@ public class Instruktor {
         ba.unsa.etf.rpr.domain.Instruktor i = new ba.unsa.etf.rpr.domain.Instruktor();
         i.setNazivInstruktora(ime.getText() + " " + prezime.getText());
         i.setId(0);
-        i.setGrad(grad.getText());
+        i.setGrad(grad.getValue());
         i.setTelefonskiBroj(telefon.getText());
         i.setCijenaPoCasu(Double.parseDouble(cijena.getText()));
         i = ins.add(i);
@@ -78,7 +77,7 @@ public class Instruktor {
         for (String s : dani)
             DostupanDaoSQLImpl.getInstance().add(new Dostupan(0, s, i));
         GMailer gm = new GMailer();
-        gm.posaljiMail("Podaci o instruktoru:" + "\nNaziv: " + ime.getText() + " " + prezime.getText() + "\nEmail adresa: " + email.getText() + "\nGrad: " + grad.getText() + "\nCijena po času: " + cijena.getText());
+        gm.posaljiMail("Podaci o instruktoru:" + "\nNaziv: " + ime.getText() + " " + prezime.getText() + "\nEmail adresa: " + email.getText() + "\nGrad: " + grad.getValue() + "\nCijena po času: " + cijena.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
