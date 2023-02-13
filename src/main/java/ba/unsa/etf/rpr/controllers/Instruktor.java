@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.GMailer;
+import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
 import ba.unsa.etf.rpr.tabele.Predmet;
 import javafx.collections.FXCollections;
@@ -31,7 +32,7 @@ public class Instruktor {
     public RadioButton ponedjeljak,utorak,srijeda,cetvrtak,petak,subota,nedjelja;
     public ListView predmetiListView;
     public ListView pregledListView;
-
+    public TextField telefon;
     @FXML
     void initialize() {
         ObservableList<String> ob= FXCollections.observableArrayList();
@@ -45,6 +46,14 @@ public class Instruktor {
     }
 
     public void prijaviSeAction(ActionEvent actionEvent) throws Exception {
+        InstruktorDaoSQLImpl ins=InstruktorDaoSQLImpl.getInstance();
+        ba.unsa.etf.rpr.tabele.Instruktor i=new ba.unsa.etf.rpr.tabele.Instruktor();
+        i.setNazivInstruktora(ime.getText()+" "+prezime.getText());
+        i.setId(0);
+        i.setGrad(grad.getText());
+        i.setTelefonskiBroj(telefon.getText());
+        i.setCijenaPoCasu(Double.parseDouble(cijena.getText()));
+        ins.add(i);
         GMailer gm=new GMailer();
         gm.posaljiMail("Podaci o instruktoru:"+"\nNaziv: "+ime.getText()+" "+prezime.getText()+"\nEmail adresa: "+email.getText()+"\nGrad: "+grad.getText()+"\nCijena po času: "+cijena.getText());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
