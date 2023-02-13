@@ -6,6 +6,11 @@ public class Medjutabela {
     private Predmet predmet;
     private Instruktor ins;
 
+    public Medjutabela(Predmet predmet, Instruktor ins) {
+        this.predmet = predmet;
+        this.ins = ins;
+    }
+
     public Predmet getPredmet() {
         return predmet;
     }
