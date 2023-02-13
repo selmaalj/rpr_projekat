@@ -43,6 +43,17 @@ public class MedjutabelaDaoSQLImpl implements MedjutabelaDao{
 
     @Override
     public Medjutabela add(Medjutabela element) {
+        try{
+            Connection con=AbstractDao.getConnection();
+            PreparedStatement statement = con.prepareStatement("INSERT INTO Medjutabela VALUES(?,?);");
+            statement.setInt(1, element.getIns().getId());
+            statement.setInt(2, element.getPredmet().getId());
+            statement.executeUpdate();
+            return element;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
