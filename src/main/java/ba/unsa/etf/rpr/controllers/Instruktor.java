@@ -1,6 +1,10 @@
 package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.GMailer;
+import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
+import ba.unsa.etf.rpr.tabele.Predmet;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +12,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class Instruktor {
@@ -23,9 +29,19 @@ public class Instruktor {
     public TextField grad;
     public TextField cijena;
     public RadioButton ponedjeljak,utorak,srijeda,cetvrtak,petak,subota,nedjelja;
+    public ListView predmetiListView;
+    public ListView pregledListView;
 
     @FXML
     void initialize() {
+        ObservableList<String> ob= FXCollections.observableArrayList();
+        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
+        List<Predmet> l=pd.getAll();
+        for(Predmet p: l){
+            ob.add(p.getId()+". "+p.getNazivPredmeta()+" ("+p.getNivoSkolovanja()+")");
+        }
+        predmetiListView.setItems(ob);
+        predmetiListView.getSelectionModel().select(0);
     }
 
     public void prijaviSeAction(ActionEvent actionEvent) throws Exception {
@@ -52,5 +68,7 @@ public class Instruktor {
         stage.setTitle("Admin:");
         stage.setScene(scene);
         stage.show();
+    }
+    public void akcijaDugmetaDodaj(ActionEvent actionEvent) {
     }
 }
