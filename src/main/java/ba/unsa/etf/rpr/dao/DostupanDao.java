@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.tabele.Dostupan;
-import ba.unsa.etf.rpr.tabele.Instruktor;
+import ba.unsa.etf.rpr.domain.Dostupan;
+import ba.unsa.etf.rpr.domain.Instruktor;
 
 import java.util.List;
 

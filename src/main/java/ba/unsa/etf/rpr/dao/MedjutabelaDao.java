@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.tabele.Medjutabela;
+import ba.unsa.etf.rpr.domain.Medjutabela;
 
 import java.util.List;
 

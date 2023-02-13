@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.controllers;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
-import ba.unsa.etf.rpr.tabele.Instruktor;
+import ba.unsa.etf.rpr.domain.Instruktor;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

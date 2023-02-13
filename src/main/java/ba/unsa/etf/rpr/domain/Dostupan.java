@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.tabele;
+package ba.unsa.etf.rpr.domain;
 
 import java.util.Objects;
 

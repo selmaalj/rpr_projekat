@@ -4,8 +4,8 @@ import ba.unsa.etf.rpr.GMailer;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
-import ba.unsa.etf.rpr.tabele.Medjutabela;
-import ba.unsa.etf.rpr.tabele.Predmet;
+import ba.unsa.etf.rpr.domain.Medjutabela;
+import ba.unsa.etf.rpr.domain.Predmet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,7 +50,7 @@ public class Instruktor {
 
     public void prijaviSeAction(ActionEvent actionEvent) throws Exception {
         InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();
-        ba.unsa.etf.rpr.tabele.Instruktor i = new ba.unsa.etf.rpr.tabele.Instruktor();
+        ba.unsa.etf.rpr.domain.Instruktor i = new ba.unsa.etf.rpr.domain.Instruktor();
         i.setNazivInstruktora(ime.getText() + " " + prezime.getText());
         i.setId(0);
         i.setGrad(grad.getText());

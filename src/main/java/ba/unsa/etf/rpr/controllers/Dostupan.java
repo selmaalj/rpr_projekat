@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.controllers;
 
 import ba.unsa.etf.rpr.dao.DostupanDaoSQLImpl;
-import ba.unsa.etf.rpr.tabele.Instruktor;
+import ba.unsa.etf.rpr.domain.Instruktor;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,8 +34,8 @@ public class Dostupan {
         ned.setCellValueFactory(new PropertyValueFactory<>("nedjelja"));
         SimpleStringProperty[] yesno=new SimpleStringProperty[7];
         for(int i=0; i<7; i++) yesno[i]=new SimpleStringProperty("NE");
-        List<ba.unsa.etf.rpr.tabele.Dostupan> l=DostupanDaoSQLImpl.getInstance().getByInstruktor(ins);
-        for(ba.unsa.etf.rpr.tabele.Dostupan d:l){
+        List<ba.unsa.etf.rpr.domain.Dostupan> l=DostupanDaoSQLImpl.getInstance().getByInstruktor(ins);
+        for(ba.unsa.etf.rpr.domain.Dostupan d:l){
             if(d.getDan().equalsIgnoreCase("Ponedjeljak")) yesno[0].setValue("DA");
             if(d.getDan().equalsIgnoreCase("Utorak")) yesno[1].setValue("DA");
             if(d.getDan().equalsIgnoreCase("Srijeda")) yesno[2].setValue("DA");

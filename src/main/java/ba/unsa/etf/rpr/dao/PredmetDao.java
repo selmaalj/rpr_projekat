@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 
-import ba.unsa.etf.rpr.tabele.Predmet;
+import ba.unsa.etf.rpr.domain.Predmet;
 
 
 public interface PredmetDao extends Dao<Predmet>{
