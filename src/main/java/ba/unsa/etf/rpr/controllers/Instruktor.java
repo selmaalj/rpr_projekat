@@ -117,9 +117,8 @@ public class Instruktor {
     }
 
     public void akcijaDugmetaDodaj(ActionEvent actionEvent) {
-        ObservableList<String> ob = FXCollections.observableArrayList();
+        ObservableList<String> ob= pregledListView.getItems();
         List<String> temp = predmetiListView.getSelectionModel().getSelectedItems();
-        ob = pregledListView.getItems();
         for (String s : temp) {
             if (!ob.contains(s))
                 ob.add(s);

@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Odabir {
-    public Button korisnik;
-    public Button instruktor;
-    public Button admin;
+    public Button korisnik, instruktor, admin;
 
     public void akcijaDugmetaIzaberi(ActionEvent actionEvent) throws IOException {
         Node node= (Node) actionEvent.getSource();
@@ -29,7 +27,7 @@ public class Odabir {
         Stage stage= (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/instruktor.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 900, 450);
         stage.setTitle("Popunite podatke:");
         stage.setScene(scene);
         stage.show();
@@ -40,8 +38,9 @@ public class Odabir {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/adminprijava.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 400, 200);
-        stage.setTitle("Admin:");
+        stage.setTitle("Admin prijava");
         stage.setScene(scene);
         stage.show();
     }
+
 }

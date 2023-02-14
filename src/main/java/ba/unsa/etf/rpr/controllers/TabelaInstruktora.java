@@ -84,7 +84,7 @@ public class TabelaInstruktora {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/korisnik.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Admin:");
+        stage.setTitle("Popunite zahtjeve:");
         stage.setScene(scene);
         stage.show();
     }
@@ -95,7 +95,7 @@ public class TabelaInstruktora {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/odabirwindow.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 400, 200);
-        stage.setTitle("Admin:");
+        stage.setTitle("Dobro došli!");
         stage.setScene(scene);
         stage.show();
     }

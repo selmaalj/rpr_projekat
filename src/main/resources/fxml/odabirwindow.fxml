@@ -26,21 +26,21 @@
       <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button id="izaberiDugme" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#akcijaDugmetaIzaberi" text="Želite izabrati instruktora?" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <Button fx:id="korisnik" id="izaberiDugme" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#akcijaDugmetaIzaberi" text="Želite izabrati instruktora?" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <GridPane.margin>
             <Insets top="15.0" />
          </GridPane.margin>
          <font>
             <Font size="13.0" />
          </font></Button>
-      <Button id="postaniDugme" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#akcijaDugmetaPrijavi" text="Želite postati instruktor?" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <Button fx:id="instruktor" id="postaniDugme" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#akcijaDugmetaPrijavi" text="Želite postati instruktor?" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <font>
             <Font size="13.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="15.0" />
          </GridPane.margin></Button>
-      <Button mnemonicParsing="false" onAction="#akcijaDugmetaAdmin" text="Admin" GridPane.columnIndex="3" GridPane.rowIndex="3">
+      <Button fx:id="admin" mnemonicParsing="false" onAction="#akcijaDugmetaAdmin" text="Admin" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>

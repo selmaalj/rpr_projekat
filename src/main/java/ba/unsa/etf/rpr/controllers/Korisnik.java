@@ -2,8 +2,6 @@ package ba.unsa.etf.rpr.controllers;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +32,7 @@ public class Korisnik {
         choiceBoxGrad.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
         choiceBoxGrad.getSelectionModel().select(0);
         sliderText.setText(String.valueOf(0));
-        slider.valueProperty().addListener(new ChangeListener<>() {
-            public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-                sliderText.setText(String.valueOf(Math.round((Double) new_val)));
-            }
-        });
-
+        slider.valueProperty().addListener((ov, old_val, new_val) -> sliderText.setText(String.valueOf(Math.round((Double) new_val))));
     }
 
     public void akcijaDugmeta(ActionEvent actionEvent) throws IOException {
