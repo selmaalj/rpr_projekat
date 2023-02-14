@@ -88,6 +88,15 @@ public class AdminPanel {
     }
 
     public void akcijaDugmetaUpdatePredmet(ActionEvent actionEvent) {
+        List<String> temp = predmeti.getSelectionModel().getSelectedItems();
+        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
+        ObservableList<String> ob=predmeti.getItems();
+        for(String s: temp){
+            int id = Integer.parseInt(s.split("-")[0]);
+            pd.update(new Predmet(id, updateNaziv.getText(), s.split("-")[2]));
+            predmeti.refresh();
+        }
+        predmeti.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaDodajPredmeteZaInstruktora(ActionEvent actionEvent) {

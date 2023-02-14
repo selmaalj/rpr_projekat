@@ -155,13 +155,19 @@
                               <Insets />
                            </opaqueInsets>
                            <HBox.margin>
-                              <Insets left="10.0" right="10.0" top="12.0" />
+                              <Insets left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
                         </TextField>
                         <Button mnemonicParsing="false" onAction="#akcijaDugmetaDodajPredmeteZaInstruktora" text="Dodaj">
                            <HBox.margin>
-                              <Insets top="12.0" />
+                              <Insets top="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
                         </Button>
                      </children>
                   </HBox>
@@ -200,7 +206,7 @@
                   </Button>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SET NOVI BROJ:" wrappingWidth="95.13671875" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="13.0" />
@@ -216,7 +222,7 @@
                   </TextField>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SET NOVI GRAD:" wrappingWidth="95.13671875" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="13.0" />
@@ -232,7 +238,7 @@
                   </TextField>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SET NOVA CIJENA:" wrappingWidth="105.13671875" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="13.0" />
@@ -256,7 +262,7 @@
                         <Font size="13.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Text>
                   <TextField fx:id="ime" GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -272,7 +278,7 @@
                         <Font size="13.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Text>
                   <TextField fx:id="prezime" GridPane.columnIndex="2" GridPane.rowIndex="4">
@@ -285,7 +291,7 @@
                   </TextField>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SET NOVI DANI:" wrappingWidth="79.13671875" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="2">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="13.0" />
