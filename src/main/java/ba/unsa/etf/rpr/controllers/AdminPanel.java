@@ -6,6 +6,7 @@ import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
 import ba.unsa.etf.rpr.domain.Dostupan;
 import ba.unsa.etf.rpr.domain.Instruktor;
+import ba.unsa.etf.rpr.domain.Medjutabela;
 import ba.unsa.etf.rpr.domain.Predmet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,7 +111,30 @@ public class AdminPanel {
         predmeti.getSelectionModel().select(0);
     }
 
-    public void akcijaDugmetaDodajPredmeteZaInstruktora(ActionEvent actionEvent) {
+    public void akcijaDugmetaSpoji(ActionEvent actionEvent) {
+        MedjutabelaDaoSQLImpl md=MedjutabelaDaoSQLImpl.getInstance();
+        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
+        InstruktorDaoSQLImpl insd=InstruktorDaoSQLImpl.getInstance();
+        List<String> l=predmeti.getSelectionModel().getSelectedItems();
+        int idPredmet=Integer.parseInt(l.get(0).split("-")[0]);
+        int idInstruktor=Integer.parseInt(idPolje.getText());
+        if(md.postoji(idInstruktor, idPredmet)) {
+        }
+        else {
+            md.add(new Medjutabela(pd.getById(idPredmet), insd.getById(idInstruktor)));
+        }
+    }
+
+    public void akcijaDugmetaOdspoji(ActionEvent actionEvent) {
+        MedjutabelaDaoSQLImpl md=MedjutabelaDaoSQLImpl.getInstance();
+        List<String> l=predmeti.getSelectionModel().getSelectedItems();
+        int idPredmet=Integer.parseInt(l.get(0).split("-")[0]);
+        int idInstruktor=Integer.parseInt(idPolje.getText());
+        if(md.postoji(idInstruktor, idPredmet)) {
+            md.deleteByBoth(idInstruktor, idPredmet);
+        }
+        else {
+        }
     }
 
     public void akcijaDugmetaObrisiInstruktor(ActionEvent actionEvent) {
