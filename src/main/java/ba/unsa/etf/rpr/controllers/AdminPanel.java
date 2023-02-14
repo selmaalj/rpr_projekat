@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -22,7 +23,11 @@ public class AdminPanel {
 
     public ListView<String> predmeti;
     public TextField nivo, naziv;
-    public TextField idPolje, telefon, grad, cijena, ime, prezime;
+    public TextField updateNaziv, idPolje;
+    public ListView<String> pregledPredmetaInstruktora;
+    public TextField telefon, grad, cijena, ime, prezime;
+    public RadioButton ponedjeljak, utorak, srijeda, cetvrtak, petak, subota, nedjelja;
+    public ListView<String> instruktori;
 
     @FXML
     void initialize(){
@@ -82,9 +87,16 @@ public class AdminPanel {
         predmeti.getSelectionModel().select(0);
     }
 
+    public void akcijaDugmetaUpdatePredmet(ActionEvent actionEvent) {
+    }
+
+    public void akcijaDugmetaDodajPredmeteZaInstruktora(ActionEvent actionEvent) {
+    }
+
     public void akcijaDugmetaObrisiInstruktor(ActionEvent actionEvent) {
     }
 
     public void akcijaDugmetaUpdateInstruktor(ActionEvent actionEvent) {
     }
+
 }
