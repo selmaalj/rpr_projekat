@@ -20,7 +20,7 @@ public class MedjutabelaDaoSQLImpl implements MedjutabelaDao {
     }
 
     @Override
-    public List<Integer> getbyPredmet(int predmetId) {
+    public List<Integer> getByPredmet(int predmetId) {
         List<Integer> instruktorIds = new ArrayList<>();
         try {
             Connection con = AbstractDao.getConnection();
@@ -63,7 +63,7 @@ public class MedjutabelaDaoSQLImpl implements MedjutabelaDao {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id) { //deleteByPredmet
         try {
             Connection con = AbstractDao.getConnection();
             PreparedStatement statement = con.prepareStatement("DELETE FROM Medjutabela WHERE idPredmet=?;");
@@ -74,6 +74,17 @@ public class MedjutabelaDaoSQLImpl implements MedjutabelaDao {
         }
     }
 
+    @Override
+    public void deleteByInstruktor(int instruktorId){
+        try {
+            Connection con = AbstractDao.getConnection();
+            PreparedStatement statement = con.prepareStatement("DELETE FROM Medjutabela WHERE idInstruktor=?;");
+            statement.setInt(1, instruktorId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     @Override
     public List<Medjutabela> getAll() {
         return null;
