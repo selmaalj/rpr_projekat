@@ -34,12 +34,12 @@
                   <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
+                  <ListView fx:id="predmeti" prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </ListView>
-                  <Button mnemonicParsing="false" onAction="#akcijaDugmetaObrisi" text="Obriši" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <Button mnemonicParsing="false" onAction="#akcijaDugmetaObrisiPredmet" text="Obriši" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -81,7 +81,7 @@
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#akcijaDugmetaDodaj" text="Dodaj" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <Button mnemonicParsing="false" onAction="#akcijaDugmetaDodajPredmet" text="Dodaj" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
