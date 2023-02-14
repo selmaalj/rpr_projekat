@@ -37,6 +37,14 @@ public class AdminPrijava{
         if(mail.getText().equals(em) && lozinka.getText().equals(pass))
             tacan=true;
         if(tacan) {
+            Node node = (Node) actionEvent.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/adminpanel.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root, 600, 500);
+            stage.setTitle("Admin panel");
+            stage.setScene(scene);
+            stage.show();
         }
         else{
             Node node = (Node) actionEvent.getSource();
