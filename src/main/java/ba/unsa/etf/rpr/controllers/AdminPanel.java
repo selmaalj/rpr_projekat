@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.dao.DostupanDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
+import ba.unsa.etf.rpr.domain.Dostupan;
 import ba.unsa.etf.rpr.domain.Instruktor;
 import ba.unsa.etf.rpr.domain.Predmet;
 import javafx.collections.FXCollections;
@@ -112,6 +114,24 @@ public class AdminPanel {
     }
 
     public void akcijaDugmetaObrisiInstruktor(ActionEvent actionEvent) {
+        List<String> temp = instruktori.getSelectionModel().getSelectedItems();
+        InstruktorDaoSQLImpl insd=InstruktorDaoSQLImpl.getInstance();
+        MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
+        DostupanDaoSQLImpl dd=DostupanDaoSQLImpl.getInstance();
+        ObservableList<String> ob = instruktori.getItems();
+        for (String s : temp) {
+            int id = Integer.parseInt(s.split("-")[0]);
+            md.deleteByInstruktor(id);
+            List<Dostupan> listaDostupan=dd.getByInstruktor(insd.getById(id));
+            for (Dostupan dostupan : listaDostupan) {
+                dd.delete(dostupan.getId());
+            }
+            insd.delete(id);
+            ob.remove(s);
+            instruktori.setItems(ob);
+            instruktori.refresh();
+        }
+        instruktori.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaUpdateInstruktor(ActionEvent actionEvent) {
