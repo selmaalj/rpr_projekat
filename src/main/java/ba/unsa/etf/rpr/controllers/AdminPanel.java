@@ -22,6 +22,7 @@ public class AdminPanel {
 
     public ListView<String> predmeti;
     public TextField nivo, naziv;
+    public TextField idPolje, telefon, grad, cijena, ime, prezime;
 
     @FXML
     void initialize(){
@@ -79,5 +80,11 @@ public class AdminPanel {
             predmeti.refresh();
         }
         predmeti.getSelectionModel().select(0);
+    }
+
+    public void akcijaDugmetaObrisiInstruktor(ActionEvent actionEvent) {
+    }
+
+    public void akcijaDugmetaUpdateInstruktor(ActionEvent actionEvent) {
     }
 }
