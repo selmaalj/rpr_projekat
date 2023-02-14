@@ -1,7 +1,9 @@
 package ba.unsa.etf.rpr.controllers;
 
+import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
+import ba.unsa.etf.rpr.domain.Instruktor;
 import ba.unsa.etf.rpr.domain.Predmet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,53 +32,60 @@ public class AdminPanel {
     public ListView<String> instruktori;
 
     @FXML
-    void initialize(){
-        ObservableList<String> ob= FXCollections.observableArrayList();
-        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
-        List<Predmet> l=pd.getAll();
-        for(Predmet p: l)
-            ob.add(p.getId()+"-"+p.getNazivPredmeta()+"-"+p.getNivoSkolovanja());
-        predmeti.setItems(ob);
+    void initialize() {
+        ObservableList<String> obp = FXCollections.observableArrayList();
+        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
+        List<Predmet> lp = pd.getAll();
+        for (Predmet p : lp)
+            obp.add(p.getId() + "-" + p.getNazivPredmeta() + "-" + p.getNivoSkolovanja());
+        predmeti.setItems(obp);
         predmeti.getSelectionModel().select(0);
+        ObservableList<String> obi = FXCollections.observableArrayList();
+        InstruktorDaoSQLImpl insd = InstruktorDaoSQLImpl.getInstance();
+        List<Instruktor> li = insd.getAll();
+        for (Instruktor i : li)
+            obi.add(i.getId() + "-" + i.getNazivInstruktora() + "-" + i.getTelefonskiBroj() + "-" + i.getCijenaPoCasu() + "-" + i.getGrad());
+        instruktori.setItems(obi);
+        instruktori.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaNazad(ActionEvent actionEvent) throws IOException {
-        Node node=(Node) actionEvent.getSource();
-        Stage stage= (Stage) node.getScene().getWindow();
-        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/adminprijava.fxml"));
-        Parent root=fxmlLoader.load();
-        Scene scene=new Scene(root,400,200);
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/adminprijava.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 400, 200);
         stage.setTitle("Admin prijava");
         stage.setScene(scene);
         stage.show();
     }
 
     public void akcijaDugmetaPocetak(ActionEvent actionEvent) throws IOException {
-        Node node=(Node) actionEvent.getSource();
-        Stage stage= (Stage) node.getScene().getWindow();
-        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("/fxml/odabirwindow.fxml"));
-        Parent root=fxmlLoader.load();
-        Scene scene=new Scene(root,400,200);
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/odabirwindow.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 400, 200);
         stage.setTitle("Dobro došli!");
         stage.setScene(scene);
         stage.show();
     }
 
     public void akcijaDugmetaDodajPredmet(ActionEvent actionEvent) {
-        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
-        Predmet p=pd.add(new Predmet(0,naziv.getText(),nivo.getText()));
-        ObservableList<String> ob=predmeti.getItems();
-        ob.add(p.getId()+"-"+p.getNazivPredmeta()+"-"+p.getNivoSkolovanja());
+        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
+        Predmet p = pd.add(new Predmet(0, naziv.getText(), nivo.getText()));
+        ObservableList<String> ob = predmeti.getItems();
+        ob.add(p.getId() + "-" + p.getNazivPredmeta() + "-" + p.getNivoSkolovanja());
         predmeti.setItems(ob);
         predmeti.refresh();
     }
 
-        public void akcijaDugmetaObrisiPredmet(ActionEvent actionEvent) {
+    public void akcijaDugmetaObrisiPredmet(ActionEvent actionEvent) {
         List<String> temp = predmeti.getSelectionModel().getSelectedItems();
-        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
-        MedjutabelaDaoSQLImpl md=MedjutabelaDaoSQLImpl.getInstance();
-        ObservableList<String> ob=predmeti.getItems();
-        for(String s: temp){
+        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
+        MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
+        ObservableList<String> ob = predmeti.getItems();
+        for (String s : temp) {
             int id = Integer.parseInt(s.split("-")[0]);
             md.delete(id);
             pd.delete(id);
@@ -89,9 +98,9 @@ public class AdminPanel {
 
     public void akcijaDugmetaUpdatePredmet(ActionEvent actionEvent) {
         List<String> temp = predmeti.getSelectionModel().getSelectedItems();
-        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
-        ObservableList<String> ob=predmeti.getItems();
-        for(String s: temp){
+        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
+        ObservableList<String> ob = predmeti.getItems();
+        for (String s : temp) {
             int id = Integer.parseInt(s.split("-")[0]);
             pd.update(new Predmet(id, updateNaziv.getText(), s.split("-")[2]));
             predmeti.refresh();
