@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminPanel {
@@ -50,6 +51,37 @@ public class AdminPanel {
             obi.add(i.getId() + "-" + i.getNazivInstruktora() + "-" + i.getTelefonskiBroj() + "-" + i.getCijenaPoCasu() + "-" + i.getGrad());
         instruktori.setItems(obi);
         instruktori.getSelectionModel().select(0);
+        instruktori.getSelectionModel().selectedItemProperty().addListener((observableValue, oldval, newval) -> {
+            if (newval != null) {
+                ponedjeljak.setSelected(false);
+                utorak.setSelected(false);
+                srijeda.setSelected(false);
+                cetvrtak.setSelected(false);
+                petak.setSelected(false);
+                subota.setSelected(false);
+                nedjelja.setSelected(false);
+                int id = Integer.parseInt(newval.split("-")[0]);
+                Instruktor i = insd.getById(id);
+                telefon.setText(i.getTelefonskiBroj());
+                cijena.setText(String.valueOf(i.getCijenaPoCasu()));
+                grad.setText(i.getGrad());
+                ime.setText(i.getNazivInstruktora().split(" ")[0]);
+                prezime.setText(i.getNazivInstruktora().split(" ")[1]);
+                List<Dostupan> dani = DostupanDaoSQLImpl.getInstance().getByInstruktor(i);
+                for (Dostupan d : dani) {
+                    String dan = d.getDan();
+                    switch (dan) {
+                        case "Ponedjeljak" -> ponedjeljak.setSelected(true);
+                        case "Utorak" -> utorak.setSelected(true);
+                        case "Srijeda" -> srijeda.setSelected(true);
+                        case "Cetvrtak" -> cetvrtak.setSelected(true);
+                        case "Petak" -> petak.setSelected(true);
+                        case "Subota" -> subota.setSelected(true);
+                        case "Nedjelja" -> nedjelja.setSelected(true);
+                    }
+                }
+            }
+        });
     }
 
     public void akcijaDugmetaNazad(ActionEvent actionEvent) throws IOException {
@@ -84,81 +116,70 @@ public class AdminPanel {
     }
 
     public void akcijaDugmetaObrisiPredmet(ActionEvent actionEvent) {
-        List<String> temp = predmeti.getSelectionModel().getSelectedItems();
+        String temp = predmeti.getSelectionModel().getSelectedItem();
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
         ObservableList<String> ob = predmeti.getItems();
-        for (String s : temp) {
-            int id = Integer.parseInt(s.split("-")[0]);
-            md.delete(id);
-            pd.delete(id);
-            ob.remove(s);
-            predmeti.setItems(ob);
-            predmeti.refresh();
-        }
+        int id = Integer.parseInt(temp.split("-")[0]);
+        md.delete(id);
+        pd.delete(id);
+        ob.remove(temp);
+        predmeti.setItems(ob);
+        predmeti.refresh();
         predmeti.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaUpdatePredmet(ActionEvent actionEvent) {
-        List<String> temp = predmeti.getSelectionModel().getSelectedItems();
+        String temp = predmeti.getSelectionModel().getSelectedItem();
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         ObservableList<String> ob = predmeti.getItems();
-        for (String s : temp) {
-            int id = Integer.parseInt(s.split("-")[0]);
-            pd.update(new Predmet(id, updateNaziv.getText(), s.split("-")[2]));
-            predmeti.refresh();
-        }
+        int id = Integer.parseInt(temp.split("-")[0]);
+        pd.update(new Predmet(id, updateNaziv.getText(), temp.split("-")[2]));
+        predmeti.refresh();
         predmeti.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaSpoji(ActionEvent actionEvent) {
-        MedjutabelaDaoSQLImpl md=MedjutabelaDaoSQLImpl.getInstance();
-        PredmetDaoSQLImpl pd=PredmetDaoSQLImpl.getInstance();
-        InstruktorDaoSQLImpl insd=InstruktorDaoSQLImpl.getInstance();
-        List<String> l=predmeti.getSelectionModel().getSelectedItems();
-        int idPredmet=Integer.parseInt(l.get(0).split("-")[0]);
-        int idInstruktor=Integer.parseInt(idPolje.getText());
-        if(md.postoji(idInstruktor, idPredmet)) {
-        }
-        else {
+        MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
+        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
+        InstruktorDaoSQLImpl insd = InstruktorDaoSQLImpl.getInstance();
+        String temp = predmeti.getSelectionModel().getSelectedItem();
+        int idPredmet = Integer.parseInt(temp.split("-")[0]);
+        int idInstruktor = Integer.parseInt(idPolje.getText());
+        if (md.postoji(idInstruktor, idPredmet)) {
+        } else {
             md.add(new Medjutabela(pd.getById(idPredmet), insd.getById(idInstruktor)));
         }
     }
 
     public void akcijaDugmetaOdspoji(ActionEvent actionEvent) {
-        MedjutabelaDaoSQLImpl md=MedjutabelaDaoSQLImpl.getInstance();
-        List<String> l=predmeti.getSelectionModel().getSelectedItems();
-        int idPredmet=Integer.parseInt(l.get(0).split("-")[0]);
-        int idInstruktor=Integer.parseInt(idPolje.getText());
-        if(md.postoji(idInstruktor, idPredmet)) {
+        MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
+        String temp = predmeti.getSelectionModel().getSelectedItem();
+        int idPredmet = Integer.parseInt(temp.split("-")[0]);
+        int idInstruktor = Integer.parseInt(idPolje.getText());
+        if (md.postoji(idInstruktor, idPredmet))
             md.deleteByBoth(idInstruktor, idPredmet);
-        }
-        else {
-        }
     }
 
     public void akcijaDugmetaObrisiInstruktor(ActionEvent actionEvent) {
-        List<String> temp = instruktori.getSelectionModel().getSelectedItems();
-        InstruktorDaoSQLImpl insd=InstruktorDaoSQLImpl.getInstance();
+        String temp = instruktori.getSelectionModel().getSelectedItem();
+        InstruktorDaoSQLImpl insd = InstruktorDaoSQLImpl.getInstance();
         MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
-        DostupanDaoSQLImpl dd=DostupanDaoSQLImpl.getInstance();
+        DostupanDaoSQLImpl dd = DostupanDaoSQLImpl.getInstance();
         ObservableList<String> ob = instruktori.getItems();
-        for (String s : temp) {
-            int id = Integer.parseInt(s.split("-")[0]);
-            md.deleteByInstruktor(id);
-            List<Dostupan> listaDostupan=dd.getByInstruktor(insd.getById(id));
-            for (Dostupan dostupan : listaDostupan) {
-                dd.delete(dostupan.getId());
-            }
-            insd.delete(id);
-            ob.remove(s);
-            instruktori.setItems(ob);
-            instruktori.refresh();
+        int id = Integer.parseInt(temp.split("-")[0]);
+        md.deleteByInstruktor(id);
+        List<Dostupan> listaDostupan = dd.getByInstruktor(insd.getById(id));
+        for (Dostupan dostupan : listaDostupan) {
+            dd.delete(dostupan.getId());
         }
+        insd.delete(id);
+        ob.remove(temp);
+        instruktori.setItems(ob);
+        instruktori.refresh();
         instruktori.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaUpdateInstruktor(ActionEvent actionEvent) {
     }
-
 }
