@@ -53,4 +53,15 @@ public class DostupanDaoSQLImpl extends AbstractDao<Dostupan> implements Dostupa
     public List<Dostupan> getByInstruktor(Instruktor ins){
         return executeQuery("SELECT * FROM Dostupan WHERE idInstruktor=?;", new Object[]{ins.getId()});
     }
+    @Override
+    public void deleteByInstruktor(Instruktor ins){
+        try {
+            PreparedStatement statement= getConnection().prepareStatement("DELETE FROM Dostupan WHERE idInstruktor=?");
+            statement.setInt(1, ins.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

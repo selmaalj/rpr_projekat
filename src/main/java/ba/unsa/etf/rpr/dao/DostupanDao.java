@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DostupanDao extends Dao<Dostupan> {
     List<Dostupan> getByInstruktor(Instruktor ins);
+    void deleteByInstruktor(Instruktor ins);
 }
