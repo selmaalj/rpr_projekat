@@ -181,5 +181,30 @@ public class AdminPanel {
     }
 
     public void akcijaDugmetaUpdateInstruktor(ActionEvent actionEvent) {
+        String temp = instruktori.getSelectionModel().getSelectedItem();
+        int id = Integer.parseInt(temp.split("-")[0]);
+        InstruktorDaoSQLImpl insd = InstruktorDaoSQLImpl.getInstance();
+        Instruktor i = insd.update(new Instruktor(id, ime.getText() + " " + prezime.getText(), telefon.getText(), Double.parseDouble(cijena.getText()), grad.getText()));
+        ObservableList<String> ob = instruktori.getItems();
+        for (int j = 0; j < ob.size(); j++) {
+            if (temp.equals(ob.get(j))) {
+                ob.set(j, i.getId() + "-" + i.getNazivInstruktora() + "-" + i.getTelefonskiBroj() + "-" + i.getCijenaPoCasu() + "-" + i.getGrad());
+                break;
+            }
+        }
+        instruktori.setItems(ob);
+        instruktori.refresh();
+        DostupanDaoSQLImpl.getInstance().deleteByInstruktor(i);
+        List<String> dani = new ArrayList<>();
+        if (ponedjeljak.isSelected()) dani.add("Ponedjeljak");
+        if (utorak.isSelected()) dani.add("Utorak");
+        if (srijeda.isSelected()) dani.add("Srijeda");
+        if (cetvrtak.isSelected()) dani.add("Cetvrtak");
+        if (petak.isSelected()) dani.add("Petak");
+        if (subota.isSelected()) dani.add("Subota");
+        if (nedjelja.isSelected()) dani.add("Nedjelja");
+        for (String s : dani)
+            DostupanDaoSQLImpl.getInstance().add(new Dostupan(0, s, i));
+        instruktori.getSelectionModel().select(0);
     }
 }
