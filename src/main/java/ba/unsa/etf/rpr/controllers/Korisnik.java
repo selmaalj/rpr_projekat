@@ -49,7 +49,7 @@ public class Korisnik {
             int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
             if (id == -1) throw new Izuzetak("Nemamo predmet "+sk.getPredmet()+" u ponudi.");
             MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
-            List<Integer> instruktorIds = m.getbyPredmet(id);
+            List<Integer> instruktorIds = m.getByPredmet(id);
             if (instruktorIds.isEmpty()) throw new Izuzetak("Trenutno nije slobodan nijedan instruktor za predmet "+sk.getPredmet()+".");
             for (int i = 0; i < instruktorIds.size(); i++) {
                 InstruktorDaoSQLImpl ins = InstruktorDaoSQLImpl.getInstance();

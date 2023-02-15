@@ -37,7 +37,7 @@ public class TabelaInstruktora {
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
         int id = pd.getId(sk.getPredmet(), sk.getNivo());//id predmeta
         MedjutabelaDaoSQLImpl m = new MedjutabelaDaoSQLImpl();
-        List<Integer> instruktorIds = m.getbyPredmet(id);
+        List<Integer> instruktorIds = m.getByPredmet(id);
             for (int i = 0; i < instruktorIds.size(); i++) {
                 Instruktor ins = InstruktorDaoSQLImpl.getInstance().getById(instruktorIds.get(i));
                 if (!(sk.getGrad().equals(ins.getGrad())) || (sk.getCijena()<ins.getCijenaPoCasu())) {
