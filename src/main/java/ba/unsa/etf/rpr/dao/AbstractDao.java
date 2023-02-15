@@ -1,10 +1,8 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.controllers.Izuzetak;
-import ba.unsa.etf.rpr.tabele.Idable;
+import ba.unsa.etf.rpr.domain.Idable;
 
-import java.io.File;
-import java.io.FileReader;
 import java.sql.*;
 import java.util.*;
 
@@ -32,8 +30,7 @@ public abstract class AbstractDao<T extends Idable> implements Dao<T>{
                         while(connection != null){
                             Statement s = connection.createStatement();
                             s.execute("SELECT 1 FROM dual");
-                            System.out.println("pinging...");
-                            Thread.sleep(10000);
+                            Thread.sleep(50000);
                         }
                     } catch (SQLException | InterruptedException ignored) {
                     }
