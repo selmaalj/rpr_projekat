@@ -118,21 +118,6 @@ public class MedjutabelaDaoSQLImpl implements MedjutabelaDao {
     }
 
     @Override
-    public boolean postoji(int instruktorId, int predmetId) {
-        try {
-            Connection con = AbstractDao.getConnection();
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM Medjutabela WHERE idInstruktor=? AND idPredmet=?;");
-            statement.setInt(1, instruktorId);
-            statement.setInt(2, predmetId);
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
-    }
-
-    @Override
     public List<Medjutabela> getAll() {
         return null;
     }

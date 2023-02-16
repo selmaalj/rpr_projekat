@@ -10,5 +10,5 @@ public interface MedjutabelaDao extends Dao<Medjutabela> {
     List<Predmet> getByInstruktor(int id);
     void deleteByInstruktor(int instruktorId);
     void deleteByBoth(int instruktorId, int predmetId);
-    boolean postoji(int instruktorId, int predmetId);
+
 }
