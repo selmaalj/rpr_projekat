@@ -6,6 +6,7 @@ import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
 import ba.unsa.etf.rpr.domain.Dostupan;
 import ba.unsa.etf.rpr.domain.Instruktor;
+import ba.unsa.etf.rpr.domain.Medjutabela;
 import ba.unsa.etf.rpr.domain.Predmet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,9 +42,15 @@ public class AdminPanel {
         for (Predmet p : lp)
             obp.add(p.getId() + "-" + p.getNazivPredmeta() + "-" + p.getNivoSkolovanja());
         predmeti.setItems(obp);
-        predmeti.getSelectionModel().select(0);
         predmetiLista.setItems(obp);
         predmetiLista.getSelectionModel().select(0);
+        predmeti.getSelectionModel().selectedItemProperty().addListener((observableValue, oldval, newval) -> {
+            if (newval != null) {
+                naziv.setText(newval.split("-")[1]);
+                nivo.setText(newval.split("-")[2]);
+            }
+        });
+        predmeti.getSelectionModel().select(0);
         ObservableList<String> obi = FXCollections.observableArrayList();
         InstruktorDaoSQLImpl insd = InstruktorDaoSQLImpl.getInstance();
         List<Instruktor> li = insd.getAll();
@@ -79,9 +86,9 @@ public class AdminPanel {
                         case "Nedjelja" -> nedjelja.setSelected(true);
                     }
                 }
-                List<Predmet> predmeti=MedjutabelaDaoSQLImpl.getInstance().getByInstruktor(id);
-                ObservableList<String> obs=FXCollections.observableArrayList();
-                for(Predmet p: predmeti)
+                List<Predmet> predmeti = MedjutabelaDaoSQLImpl.getInstance().getByInstruktor(id);
+                ObservableList<String> obs = FXCollections.observableArrayList();
+                for (Predmet p : predmeti)
                     obs.add(p.getId() + "-" + p.getNazivPredmeta() + "-" + p.getNivoSkolovanja());
                 pregledLista.setItems(obs);
                 pregledLista.getSelectionModel().select(0);
@@ -138,32 +145,52 @@ public class AdminPanel {
     public void akcijaDugmetaUpdatePredmet(ActionEvent actionEvent) {
         String temp = predmeti.getSelectionModel().getSelectedItem();
         PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
+        ObservableList<String> ob = predmeti.getItems();
         int id = Integer.parseInt(temp.split("-")[0]);
-        pd.update(new Predmet(id, naziv.getText(), temp.split("-")[2]));
+        Predmet p = pd.update(new Predmet(id, naziv.getText(), temp.split("-")[2]));
+        for (int i = 0; i < ob.size(); i++) {
+            if (temp.equals(ob.get(i))) {
+                ob.set(i, p.getId() + "-" + p.getNazivPredmeta() + "-" + p.getNivoSkolovanja());
+                break;
+            }
+        }
+        predmeti.setItems(ob);
         predmeti.refresh();
         predmeti.getSelectionModel().select(0);
     }
 
     public void akcijaDugmetaSpoji(ActionEvent actionEvent) {
-       /* MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
-        PredmetDaoSQLImpl pd = PredmetDaoSQLImpl.getInstance();
-        InstruktorDaoSQLImpl insd = InstruktorDaoSQLImpl.getInstance();
-        String temp = predmeti.getSelectionModel().getSelectedItem();
-        int idPredmet = Integer.parseInt(temp.split("-")[0]);
-        int idInstruktor = Integer.parseInt(idPolje.getText());
-        if (md.postoji(idInstruktor, idPredmet)) {
-        } else {
-            md.add(new Medjutabela(pd.getById(idPredmet), insd.getById(idInstruktor)));
-        }*/
+        MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
+        ObservableList<String> ob = pregledLista.getItems();
+        String predmet = predmetiLista.getSelectionModel().getSelectedItem();
+        String instruktor = instruktori.getSelectionModel().getSelectedItem();
+        if (!ob.contains(predmet)) {
+            int id = Integer.parseInt(predmet.split("-")[0]);
+            String naziv = predmet.split("-")[1];
+            String nivo = predmet.split("-")[2];
+            int idIns = Integer.parseInt(instruktor.split("-")[0]);
+            String nazivIns = instruktor.split("-")[1];
+            String telefon = instruktor.split("-")[2];
+            double cijena = Double.parseDouble(instruktor.split("-")[3]);
+            String grad = instruktor.split("-")[4];
+            md.add(new Medjutabela(new Predmet(id, naziv, nivo), new Instruktor(idIns, nazivIns, telefon, cijena, grad)));
+            ob.add(predmet);
+            pregledLista.setItems(ob);
+            pregledLista.refresh();
+        }
     }
 
     public void akcijaDugmetaOdspoji(ActionEvent actionEvent) {
-        /*MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
-        String temp = predmeti.getSelectionModel().getSelectedItem();
-        int idPredmet = Integer.parseInt(temp.split("-")[0]);
-        int idInstruktor = Integer.parseInt(idPolje.getText());
-        if (md.postoji(idInstruktor, idPredmet))
-            md.deleteByBoth(idInstruktor, idPredmet);*/
+        MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
+        ObservableList<String> ob = pregledLista.getItems();
+        String instruktor = instruktori.getSelectionModel().getSelectedItem();
+        String predmet = pregledLista.getSelectionModel().getSelectedItem();
+        int idPredmet = Integer.parseInt(predmet.split("-")[0]);
+        int idInstruktor = Integer.parseInt(instruktor.split("-")[0]);
+        md.deleteByBoth(idInstruktor, idPredmet);
+        ob.remove(predmet);
+        pregledLista.setItems(ob);
+        pregledLista.refresh();
     }
 
     public void akcijaDugmetaObrisiInstruktor(ActionEvent actionEvent) {
