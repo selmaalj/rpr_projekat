@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Medjutabela;
+import ba.unsa.etf.rpr.domain.Predmet;
 
 import java.sql.*;
 import java.util.*;
@@ -37,6 +38,23 @@ public class MedjutabelaDaoSQLImpl implements MedjutabelaDao {
         return instruktorIds;
     }
 
+    @Override
+    public List<Predmet> getByInstruktor(int id){
+        List<Predmet> lista = new ArrayList<>();
+        try {
+            Connection con = AbstractDao.getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT idPredmet FROM Medjutabela WHERE idInstruktor=?");
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                lista.add(PredmetDaoSQLImpl.getInstance().getById(rs.getInt(1)));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lista;
+    }
     @Override
     public Medjutabela getById(int id) {
         return null;
