@@ -41,7 +41,7 @@ public class AdminPrijava{
             Stage stage = (Stage) node.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/adminpanel.fxml"));
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 600, 500);
+            Scene scene = new Scene(root, 800, 500);
             stage.setTitle("Admin panel");
             stage.setScene(scene);
             stage.show();
