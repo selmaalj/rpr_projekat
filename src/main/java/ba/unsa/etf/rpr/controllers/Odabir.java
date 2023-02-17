@@ -27,7 +27,7 @@ public class Odabir {
         Stage stage= (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/instruktor.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 900, 450);
+        Scene scene = new Scene(root, 1000, 450);
         stage.setTitle("Popunite podatke:");
         stage.setScene(scene);
         stage.show();
