@@ -24,7 +24,7 @@ public class AdminPrijava{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/odabirwindow.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 400, 200);
-        stage.setTitle("Dobro došli!:");
+        stage.setTitle("Dobro došli!");
         stage.setScene(scene);
         stage.show();
     }

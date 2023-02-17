@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 
 import ba.unsa.etf.rpr.domain.Instruktor;
-import ba.unsa.etf.rpr.controllers.Izuzetak;
+import ba.unsa.etf.rpr.Izuzetak;
 
 import java.sql.*;
 import java.util.Map;

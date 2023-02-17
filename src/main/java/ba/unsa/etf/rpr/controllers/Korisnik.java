@@ -1,4 +1,5 @@
 package ba.unsa.etf.rpr.controllers;
+import ba.unsa.etf.rpr.Izuzetak;
 import ba.unsa.etf.rpr.dao.InstruktorDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.MedjutabelaDaoSQLImpl;
 import ba.unsa.etf.rpr.dao.PredmetDaoSQLImpl;
