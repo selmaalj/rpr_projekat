@@ -9,40 +9,22 @@ import java.util.List;
 public class PredmetManager {
 
     public Predmet add(Predmet predmet){
-        try{
-            return DaoFactory.predmetDao().add(predmet);
-        }catch (Izuzetak e){
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return DaoFactory.predmetDao().add(predmet);
     }
 
     public void delete(int predmetId){
-        try{
-            DaoFactory.predmetDao().delete(predmetId);
-        }
-        catch(Izuzetak e){
-            System.out.println(e.getMessage());
-        }
+        DaoFactory.predmetDao().delete(predmetId);
     }
 
     public Predmet update(Predmet predmet) throws Izuzetak{
-        try {
-            return DaoFactory.predmetDao().update(predmet);
-        }
-        catch(Izuzetak e){
-            System.out.println(e.getMessage());
-        }
-        return predmet;
+        return DaoFactory.predmetDao().update(predmet);
     }
 
     public List<Predmet> getAll(){
-        try{
-            return DaoFactory.predmetDao().getAll();
-        }
-        catch(Izuzetak e){
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return DaoFactory.predmetDao().getAll();
+    }
+
+    public Predmet getById(int id) {
+        return DaoFactory.predmetDao().getById(id);
     }
 }
