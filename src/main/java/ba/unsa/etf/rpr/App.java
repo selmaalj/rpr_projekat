@@ -11,7 +11,13 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * CLI (Command Line Interface)
+ */
 public class App {
+    /**
+     * static final varijable za opis opcija
+     */
     private static final Option addInstruktor = new Option("addI", "add-instruktor", false, "Dodavanje novog instruktora u bazu");
     private static final Option addPredmet = new Option("addP", "add-predmet", false, "Dodavanje novog predmeta u bazu");
     private static final Option getInstruktori = new Option("getI", "get-instruktori", false, "Svi instruktori iz baze");
@@ -19,6 +25,9 @@ public class App {
     private static final Option deleteInstruktor = new Option("deleteI", "delete-instruktor", false, "Brisanje instruktora iz baze");
     private static final Option deletePredmet = new Option("deleteP", "delete-predmet", false, "Brisanje predmeta iz baze");
 
+    /**
+     * @param options tipa Options
+     */
     public static void printFormattedOptions(Options options) {
         HelpFormatter helpFormatter = new HelpFormatter();
         PrintWriter printWriter = new PrintWriter(System.out);
@@ -27,6 +36,9 @@ public class App {
         printWriter.close();
     }
 
+    /**
+     * @return options
+     */
     public static Options addOptions() {
         Options options = new Options();
         options.addOption(addInstruktor);
@@ -36,6 +48,11 @@ public class App {
         return options;
     }
 
+    /**
+     * @param args String[]
+     * @throws ParseException
+     * @throws SQLException
+     */
     public static void main(String[] args) throws ParseException, SQLException {
         Options options = addOptions();
         CommandLineParser commandLineParser = new DefaultParser();

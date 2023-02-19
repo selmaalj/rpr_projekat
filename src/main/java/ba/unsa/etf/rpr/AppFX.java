@@ -11,7 +11,9 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-
+/**
+ * Glavna klasa za rad sa FX okruzenjem
+ * */
 public class AppFX extends Application
 {
     @Override
