@@ -25,7 +25,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Kontroler za prijavu instruktora
+ */
 public class Instruktor {
     public TextField ime;
     public TextField prezime;
@@ -50,6 +52,12 @@ public class Instruktor {
         grad.getItems().addAll("Sarajevo", "Mostar", "Tuzla", "Zenica", "Banja Luka", "Brcko");
         grad.getSelectionModel().select(0);
     }
+
+    /**
+     * Metoda za potvrdu podataka instruktora
+     * Ako cijena nije u zeljenom rangu, ponavlja se samo njen unos
+     * @param actionEvent
+     */
 
     public void prijaviSeAction(ActionEvent actionEvent) throws Exception {
         try {
@@ -117,6 +125,10 @@ public class Instruktor {
         stage.show();
     }
 
+    /**
+     * Metoda za dodavanje predmeta iz liste svih dostupnih predmeta koje instruktor zeli predavati
+     * @param actionEvent
+     */
     public void akcijaDugmetaDodaj(ActionEvent actionEvent) {
         ObservableList<String> ob= pregledListView.getItems();
         List<String> temp = predmetiListView.getSelectionModel().getSelectedItems();
