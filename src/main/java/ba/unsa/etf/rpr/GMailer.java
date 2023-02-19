@@ -27,9 +27,17 @@ import java.util.Set;
 import static com.google.api.services.gmail.GmailScopes.GMAIL_SEND;
 import static javax.mail.Message.RecipientType.TO;
 
+/**
+ * Klasa za komunikaciju sa Gmailom
+ */
 public class GMailer {
 
-    private static final String TEST_EMAIL = "sljuhar1@etf.unsa.ba";
+    /**
+     * @param my_email Mail s kojeg saljemo
+     * @param service Za pristup Gmailu
+     */
+
+    private static final String my_email = "sljuhar1@etf.unsa.ba";
     private final Gmail service;
 
     public GMailer() throws Exception {
@@ -57,8 +65,8 @@ public class GMailer {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
-        email.setFrom(new InternetAddress(TEST_EMAIL));
-        email.addRecipient(TO, new InternetAddress(TEST_EMAIL));
+        email.setFrom(new InternetAddress(my_email));
+        email.addRecipient(TO, new InternetAddress(my_email));
         email.setSubject(subject);
         email.setText(message);
 
@@ -82,6 +90,12 @@ public class GMailer {
             }
         }
     }
+
+    /**
+     * Metodu koristimo za slanje podataka prijavljenog instruktora
+     * @param str
+     * @throws Exception
+     */
     public void posaljiMail(String str) throws Exception {
         sendMail("Prijava za instruktora", str);
     }
