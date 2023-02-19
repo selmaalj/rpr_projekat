@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Login admina
+ */
 public class AdminPrijava{
     public PasswordField lozinka;
     public TextField mail;

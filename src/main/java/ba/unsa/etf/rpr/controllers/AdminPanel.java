@@ -25,6 +25,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa za komunikaciju admina sa bazom podataka
+ * Dva taba - predmeti i instruktori
+ */
+
 public class AdminPanel {
 
     public ListView<String> predmeti;
@@ -159,6 +164,10 @@ public class AdminPanel {
         predmeti.getSelectionModel().select(0);
     }
 
+    /**
+     * Dodavanje veze izmedju instruktora i predmeta u Medjutabelu
+     * @param actionEvent
+     */
     public void akcijaDugmetaSpoji(ActionEvent actionEvent) {
         MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
         ObservableList<String> ob = pregledLista.getItems();
@@ -180,6 +189,10 @@ public class AdminPanel {
         }
     }
 
+    /**
+     * Brisanje veze izmedju instruktora i predmeta u Medjutabeli
+     * @param actionEvent
+     */
     public void akcijaDugmetaOdspoji(ActionEvent actionEvent) {
         MedjutabelaDaoSQLImpl md = MedjutabelaDaoSQLImpl.getInstance();
         ObservableList<String> ob = pregledLista.getItems();
