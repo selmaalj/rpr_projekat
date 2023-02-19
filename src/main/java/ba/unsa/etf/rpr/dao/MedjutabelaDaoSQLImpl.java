@@ -6,6 +6,9 @@ import ba.unsa.etf.rpr.domain.Predmet;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * MySQL implementation of the Medjutabela DAO
+ */
 public class MedjutabelaDaoSQLImpl implements MedjutabelaDao {
     private static MedjutabelaDaoSQLImpl instance = null;
 

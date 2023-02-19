@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-
+/**
+ * MySQL implementation of the Dostupan DAO
+ */
 public class DostupanDaoSQLImpl extends AbstractDao<Dostupan> implements DostupanDao{
     private static  DostupanDaoSQLImpl instance = null;
     private DostupanDaoSQLImpl() {

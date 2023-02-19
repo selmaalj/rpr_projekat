@@ -7,7 +7,9 @@ import java.sql.*;
 import java.util.Map;
 import java.util.TreeMap;
 
-
+/**
+ * MySQL implementation of the Instruktor DAO
+ */
 public class InstruktorDaoSQLImpl extends AbstractDao<Instruktor> implements InstruktorDao{
     private static  InstruktorDaoSQLImpl instance = null;
     private InstruktorDaoSQLImpl() {

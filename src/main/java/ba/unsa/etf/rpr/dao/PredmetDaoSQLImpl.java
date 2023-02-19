@@ -7,6 +7,9 @@ import java.sql.*;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * MySQL implementation of the Predmet DAO
+ */
 
 public class PredmetDaoSQLImpl extends AbstractDao<Predmet> implements PredmetDao{
     private static  PredmetDaoSQLImpl instance = null;
@@ -54,8 +57,9 @@ public class PredmetDaoSQLImpl extends AbstractDao<Predmet> implements PredmetDa
             statement.setString(1, nivo);
             statement.setString(2, predmet.toLowerCase());
             ResultSet rs = statement.executeQuery();
-            if(rs.next())
-            indeks=rs.getInt("id");
+            if(rs.next()) {
+                indeks = rs.getInt("id");
+            }
             rs.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
