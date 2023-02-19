@@ -5,6 +5,9 @@ import ba.unsa.etf.rpr.domain.Predmet;
 
 import java.util.List;
 
+/**
+ * Dao interface for Medjutabela domain bea
+ */
 public interface MedjutabelaDao extends Dao<Medjutabela> {
     List<Integer> getByPredmet(int id);
     List<Predmet> getByInstruktor(int id);
