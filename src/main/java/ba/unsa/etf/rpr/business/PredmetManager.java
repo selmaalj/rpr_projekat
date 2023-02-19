@@ -6,6 +6,9 @@ import ba.unsa.etf.rpr.domain.Predmet;
 
 import java.util.List;
 
+/**
+ * Biznis sloj za klasu Predmet
+ */
 public class PredmetManager {
 
     public Predmet add(Predmet predmet){
