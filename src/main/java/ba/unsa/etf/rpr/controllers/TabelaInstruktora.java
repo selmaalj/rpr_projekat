@@ -23,6 +23,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Pregled svih instruktora koji odgovaraju unesenim zahtjevima
+ */
 public class TabelaInstruktora {
     @FXML
     private TableView<ModelInstruktori> tableview;

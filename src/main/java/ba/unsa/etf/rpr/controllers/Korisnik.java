@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Kontroler za ispunjavanje podataka s ciljem pronalaska instruktora
+ */
 public class Korisnik {
     public Button potvrda;
     public Slider slider;
@@ -36,6 +39,11 @@ public class Korisnik {
         slider.valueProperty().addListener((ov, old_val, new_val) -> sliderText.setText(String.valueOf(Math.round((Double) new_val))));
     }
 
+    /**
+     * Dugme potvrde unsenih podataka
+     * @param actionEvent
+     * @throws IOException
+     */
     public void akcijaDugmeta(ActionEvent actionEvent) throws IOException {
         PrenosPodataka sk = PrenosPodataka.getInstance();
         Node node = (Node) actionEvent.getSource();

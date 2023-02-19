@@ -1,5 +1,8 @@
 package ba.unsa.etf.rpr.controllers;
 
+/**
+ * Singleton klasa za prenos podataka iz kontrolera Korisnik
+ */
 public final class PrenosPodataka {
     private String predmet, grad, nivo;
     private double cijena;

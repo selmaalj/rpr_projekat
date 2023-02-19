@@ -2,6 +2,10 @@ package ba.unsa.etf.rpr.controllers;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Model klasa za TableView kontrolera TabelaInstruktora
+ */
+
 public class ModelInstruktori {
     private SimpleStringProperty naziv, telefon;
     private SimpleDoubleProperty cijena;

@@ -14,6 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Kontroler za ispis podataka odabranog instruktora
+ */
 public class Dostupan {
     public TextField naziv, telefon;
     public TableView<ModelDani> table;

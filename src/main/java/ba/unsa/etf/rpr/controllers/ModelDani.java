@@ -1,6 +1,9 @@
 package ba.unsa.etf.rpr.controllers;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Model klasa za TableView kontrolera Dostupan
+ */
 public class ModelDani {
     private SimpleStringProperty ponedjeljak, utorak, srijeda, cetvrtak, petak, subota, nedjelja;
 
