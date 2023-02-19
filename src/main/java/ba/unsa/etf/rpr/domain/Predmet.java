@@ -2,6 +2,9 @@ package ba.unsa.etf.rpr.domain;
 
 import java.util.Objects;
 
+/**
+ * Bean za predmete
+ */
 public class Predmet implements Idable{
     private int id;
     private String nazivPredmeta;

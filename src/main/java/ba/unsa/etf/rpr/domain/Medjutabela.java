@@ -2,6 +2,9 @@ package ba.unsa.etf.rpr.domain;
 
 import java.util.Objects;
 
+/**
+ * Veza izmedju instruktora i predmeta koje predaju
+ */
 public class Medjutabela {
     private Predmet predmet;
     private Instruktor ins;

@@ -2,6 +2,9 @@ package ba.unsa.etf.rpr.domain;
 
 import java.util.Objects;
 
+/**
+ * Bean za instruktore
+ */
 public class Instruktor implements Idable{
     private int id;
     private String nazivInstruktora;

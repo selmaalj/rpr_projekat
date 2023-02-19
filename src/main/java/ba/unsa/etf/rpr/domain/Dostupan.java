@@ -2,6 +2,9 @@ package ba.unsa.etf.rpr.domain;
 
 import java.util.Objects;
 
+/**
+ * Cuva podatke o dostupnim danima instruktora
+ */
 public class Dostupan implements Idable{
     private int id;
     private String dan;
