@@ -81,15 +81,13 @@ public class AdminPanel {
                 List<Dostupan> dani = DostupanDaoSQLImpl.getInstance().getByInstruktor(i);
                 for (Dostupan d : dani) {
                     String dan = d.getDan();
-                    switch (dan) {
-                        case "Ponedjeljak" -> ponedjeljak.setSelected(true);
-                        case "Utorak" -> utorak.setSelected(true);
-                        case "Srijeda" -> srijeda.setSelected(true);
-                        case "Cetvrtak" -> cetvrtak.setSelected(true);
-                        case "Petak" -> petak.setSelected(true);
-                        case "Subota" -> subota.setSelected(true);
-                        case "Nedjelja" -> nedjelja.setSelected(true);
-                    }
+                    if (dan.equals("Ponedjeljak")) ponedjeljak.setSelected(true);
+                    if (dan.equals("Utorak")) utorak.setSelected(true);
+                    if (dan.equals("Srijeda")) srijeda.setSelected(true);
+                    if (dan.equals("Cetvrtak")) cetvrtak.setSelected(true);
+                    if (dan.equals("Petak")) petak.setSelected(true);
+                    if (dan.equals("Subota")) subota.setSelected(true);
+                    if (dan.equals("Nedjelja")) nedjelja.setSelected(true);
                 }
                 List<Predmet> predmeti = MedjutabelaDaoSQLImpl.getInstance().getByInstruktor(id);
                 ObservableList<String> obs = FXCollections.observableArrayList();
@@ -166,6 +164,7 @@ public class AdminPanel {
 
     /**
      * Dodavanje veze izmedju instruktora i predmeta u Medjutabelu
+     *
      * @param actionEvent
      */
     public void akcijaDugmetaSpoji(ActionEvent actionEvent) {
@@ -191,6 +190,7 @@ public class AdminPanel {
 
     /**
      * Brisanje veze izmedju instruktora i predmeta u Medjutabeli
+     *
      * @param actionEvent
      */
     public void akcijaDugmetaOdspoji(ActionEvent actionEvent) {
