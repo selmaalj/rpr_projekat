@@ -15,6 +15,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+/**
+ * Testna klasa za PredmetManager klasu
+ */
 public class PredmetManagerTest {
     private PredmetManager predmetManager;
     private Predmet predmet;
@@ -68,4 +71,9 @@ public class PredmetManagerTest {
         Mockito.verify(predmetManager).add(p);
     }
 
+    @Test
+    public void getAll() {
+        when(predmetManager.getAll()).thenReturn(predmeti);
+        Assertions.assertEquals(predmeti, predmetManager.getAll());
+    }
 }
