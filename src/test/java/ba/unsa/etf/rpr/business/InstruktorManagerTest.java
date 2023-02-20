@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 public class InstruktorManagerTest {
     private InstruktorManager instruktorManager;
@@ -45,5 +46,22 @@ public class InstruktorManagerTest {
         Mockito.doCallRealMethod().when(instruktorManager).validateNaziv(incorrectEmpty);
         Izuzetak instruktorException2=assertThrows(Izuzetak.class,()-> instruktorManager.validateNaziv(incorrectEmpty),"Naziv mora imati i ime i prezime najmanje duzine 2!") ;
         Assertions.assertEquals("Naziv mora imati i ime i prezime najmanje duzine 2!",instruktorException2.getMessage());
+    }
+    @Test
+    void add() {
+        Instruktor newInstruktor=new Instruktor(0, "Naziv", "12345", 12345., "Grad");
+        instruktorManager.add(newInstruktor);
+        Assertions.assertTrue(true);
+        Mockito.verify(instruktorManager).add(newInstruktor);
+    }
+
+    @Test
+    void addExisting() {
+        when(instruktorManager.getAll()).thenReturn(instruktori);
+        Instruktor i=new Instruktor(0, "Naziv", "1", 1., "Grad");
+        Mockito.doCallRealMethod().when(instruktorManager).add(i);
+        Izuzetak instruktorException= assertThrows(Izuzetak.class,()->{instruktorManager.add(i);});
+        Assertions.assertEquals("Postoji vec u bazi taj instruktor",instruktorException.getMessage());
+        Mockito.verify(instruktorManager).add(i);
     }
 }
