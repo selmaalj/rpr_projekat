@@ -14,6 +14,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+/**
+ * Testna klasa za InstruktorManager
+ */
 public class InstruktorManagerTest {
     private InstruktorManager instruktorManager;
     private Instruktor instruktor;
@@ -63,5 +66,10 @@ public class InstruktorManagerTest {
         Izuzetak instruktorException= assertThrows(Izuzetak.class,()->{instruktorManager.add(i);});
         Assertions.assertEquals("Postoji vec u bazi taj instruktor",instruktorException.getMessage());
         Mockito.verify(instruktorManager).add(i);
+    }
+    @Test
+    public void getAll() {
+        when(instruktorManager.getAll()).thenReturn(instruktori);
+        Assertions.assertEquals(instruktori, instruktorManager.getAll());
     }
 }
